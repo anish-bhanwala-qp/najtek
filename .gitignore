@@ -13,8 +13,12 @@ bin
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+#jar files
+apache-tomcat-9.0.0.M9/lib
+spring-download/target/dependencies
+
 # Package Files #
-*.jar
+#*.jar
 *.war
 *.ear
 
