@@ -1,5 +1,15 @@
 *.class
 
+#Tomcat
+apache-tomcat-9.0.0.M9/logs/*
+apache-tomcat-9.0.0.M9/webapps
+apache-tomcat-9.0.0.M9/work
+
+#Eclipse files
+*.project
+*.classpath
+bin
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
