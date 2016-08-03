@@ -4,6 +4,6 @@
   <head><title>Hello :: Spring Application</title></head>
   <body>
     <h1>Hello - Spring Application</h1>
-    <p>Greetings, it is now <core:out value="${now}"/></p>
+    <p>This is secured page</p>
   </body>
 </html>

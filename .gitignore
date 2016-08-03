@@ -8,6 +8,7 @@ apache-tomcat-9.0.0.M9/work
 #Eclipse files
 *.project
 *.classpath
+.settings
 bin
 
 # Mobile Tools for Java (J2ME)
