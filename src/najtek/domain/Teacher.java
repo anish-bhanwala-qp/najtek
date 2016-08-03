@@ -1,4 +1,6 @@
-package najtek.infra.user;
+package najtek.domain;
+
+import najtek.infra.user.User;
 
 public class Teacher extends User {
 
