@@ -16,21 +16,27 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
         .authorizeRequests()
             .antMatchers("/secured/**").fullyAuthenticated()
-            .antMatchers("/public/**").permitAll()
+            .antMatchers("/public/**", "/resources/**").permitAll()
             .anyRequest().authenticated()
             .and()
         .formLogin()
             .loginPage("/login")
+            .usernameParameter("username")
+            .passwordParameter("password")
+            .loginProcessingUrl("/j_spring_security_check")
+            .defaultSuccessUrl("/home")
             .permitAll()
             .and()
         .logout()
-            .permitAll();
+            .permitAll()
+            .and()
+            .csrf().disable();
 	}
 	
 	@Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER");
+                .withUser("a").password("b").roles("USER");
     }
 }

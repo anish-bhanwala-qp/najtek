@@ -29,5 +29,4 @@ public class HelloController {
 
         return new ModelAndView("public/public", "now", now);
 	}
-
 }
