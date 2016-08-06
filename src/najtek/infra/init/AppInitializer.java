@@ -1,6 +1,7 @@
 package najtek.infra.init;
 
 
+import najtek.infra.config.AppDatabaseConfiguration;
 import najtek.infra.config.AppSecurityConfiguration;
 import najtek.infra.config.AppWebConfiguration;
 
@@ -10,7 +11,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { AppSecurityConfiguration.class };
+        return new Class[] { AppDatabaseConfiguration.class, AppSecurityConfiguration.class };
     }
 
     @Override

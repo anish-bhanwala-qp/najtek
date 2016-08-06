@@ -1,6 +1,6 @@
 package najtek.infra.config;
 
-import najtek.infra.user.UserService;
+import najtek.infra.user.CustomUserDetailsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -42,9 +42,12 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
 			throws Exception {
 		auth.inMemoryAuthentication().withUser("a").password("b").roles("USER");
 	}
+	
+	@Autowired
+	private CustomUserDetailsService userService;
 
 	@Override
 	protected UserDetailsService userDetailsService() {
-		return new UserService();
+		return userService;
 	}
 }

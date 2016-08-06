@@ -9,6 +9,7 @@ public class User implements UserDetails {
 
 	private static final long serialVersionUID = -2980558110010612251L;
 	
+	private long id;
 	private String username;
 	private String password;
 	
@@ -65,6 +66,11 @@ public class User implements UserDetails {
 		return true;
 	}
 
-	
+	public long getId() {
+		return id;
+	}
 
+	public void setId(long id) {
+		this.id = id;
+	}	
 }

@@ -38,6 +38,22 @@
     <!-- Editable user database that can also be used by
          UserDatabaseRealm to authenticate users
     -->
+    <Resource name="jdbc/NAJTekMainDB" 
+	      global="jdbc/NAJTekMainDB"
+	      factory="org.apache.tomcat.jdbc.pool.DataSourceFactory"
+	      auth="Container"
+              type="javax.sql.DataSource"              
+	      username="najtek"
+	      password="najtek-App1"
+	      driverClassName="com.mysql.jdbc.Driver"
+	      description="NAJTek App main database"
+	      url="jdbc:mysql://localhost/maindb?userSSL=false"
+	      maxTotal="10"
+	      maxIdle="10"
+	      maxWaitMillis="10000"
+	      removeAbandonedTimeout="300"			  
+	      defaultAutoCommit="true" />
+    
     <Resource name="UserDatabase" auth="Container"
               type="org.apache.catalina.UserDatabase"
               description="User database that can be updated and saved"

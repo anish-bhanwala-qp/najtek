@@ -1,0 +1,7 @@
+<Context>
+	
+	<ResourceLink name="jdbc/NAJTekMainDB"
+		      global="jdbc/NAJTekMainDB"
+		      type="javax.sql.DataSource"/>
+	
+</Context>

@@ -15,7 +15,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan("najtek.web")
+@ComponentScan({ "najtek.web", "najtek.infra.user" })
 public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
@@ -31,7 +31,8 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-		registry.addViewController("/login").setViewName("public/authentication/login");
+		registry.addViewController("/login").setViewName(
+				"public/authentication/login");
 		registry.addViewController("/home").setViewName("secured/home");
 	}
 
