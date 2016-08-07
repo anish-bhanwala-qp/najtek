@@ -6,23 +6,22 @@
         <title>Spring Security Example </title>
     </head>
     <body>
-    	<core:if test="${not empty param.error}">
+    	<core:if test="${param.error != null}">
 	        <div>
-	            Invalid username and password.
+	            <spring:message code="login.invalid.credentials" />
 	        </div>
         </core:if>
-        <core:if test="${not empty param.logout}">
+        <core:if test="${param.logout != null}">
 	        <div>
 	            You have been logged out.
 	        </div>
         </core:if>
-        <form name="loginForm" action="<core:url value='/j_spring_security_check' />" method="post">
+        <form name="loginForm" action="<core:url value='/appLogin' />" method="post">
             <div><label> User Name : <input type="text" name="username"/> </label></div>
             <div><label> Password: <input type="password" name="password"/> </label></div>
             <div><input type="submit" value="Sign In"/></div>
             
-             <input type="hidden" 
-                     name="${_csrf.parameterName}" value="${_csrf.token}" />
+             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
         </form>
     </body>
 </html>

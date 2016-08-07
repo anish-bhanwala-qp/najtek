@@ -6,15 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import najtek.domain.common.DomainObject;
-import najtek.infra.user.User;
 
 @Service
-public class ExecuteDatabaseQuery {
+public class DatabaseQueryUtil {
 
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
 
-	public DomainObject selectOne(User inputDomainObject, String namespace,
+	public DomainObject selectOne(DomainObject inputDomainObject, String namespace,
 			String method) {
 		DomainObject resultDomainObject;
 		SqlSession session = sqlSessionFactory.openSession();

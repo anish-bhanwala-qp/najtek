@@ -3,7 +3,7 @@ package najtek.database.dao.user;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import najtek.database.common.ExecuteDatabaseQuery;
+import najtek.database.common.DatabaseQueryUtil;
 import najtek.database.mapper.user.UserMapper;
 import najtek.infra.user.User;
 
@@ -11,7 +11,7 @@ import najtek.infra.user.User;
 public class UserDao {
 
 	@Autowired
-	private ExecuteDatabaseQuery executeDatabaseQuery;
+	private DatabaseQueryUtil executeDatabaseQuery;
 
 	public User selectById(long id) {
 		User user = new User();

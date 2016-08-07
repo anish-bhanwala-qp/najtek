@@ -31,13 +31,4 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 		return user;
 	}
-
-	/*
-	 * private void printAllUsers() { try { User user = (User)
-	 * selectFromDatabase.selectOneById( sqlSessionFactory,
-	 * UserMapper.NAMESPACE, "selectUser", 1);
-	 * System.out.println("********************* Username : " +
-	 * user.getUsername()); } catch (Exception e1) { // TODO Auto-generated
-	 * catch block e1.printStackTrace(); } }
-	 */
 }

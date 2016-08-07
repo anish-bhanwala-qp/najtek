@@ -7,12 +7,16 @@ import najtek.domain.common.DomainObject;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class User implements UserDetails, DomainObject {
 
 	private static final long serialVersionUID = -2980558110010612251L;
 	
 	private long id;
 	private String username;
+	
+	@JsonIgnore
 	private String password;
 	
 	public User() {}
