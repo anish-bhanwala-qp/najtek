@@ -5,7 +5,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import najtek.database.common.SelectFromDatabase;
 import najtek.database.mapper.user.UserMapper;
 
 import org.apache.ibatis.mapping.Environment;
@@ -18,16 +17,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan({ "najtek.infra.user", "najtek.database.common" })
+@ComponentScan({ "najtek.infra.user", "najtek.database.common" , "najtek.database.dao"})
 public class AppDatabaseConfiguration {
 
 	private static final String MAIN_DATSOURCE_NAME = "jdbc/NAJTekMainDB";
 	
-	@Bean
-	public SelectFromDatabase selectFromDatabase() {
-		return new SelectFromDatabase();
-	}
-
 	@Bean
 	public SqlSessionFactory sqlSessionFactory() throws NamingException {
 		DataSource dataSource = mainDataSource();
