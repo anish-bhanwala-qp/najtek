@@ -1,4 +1,4 @@
-package najtek.domain;
+package najtek.domain.user;
 
 import najtek.infra.user.User;
 

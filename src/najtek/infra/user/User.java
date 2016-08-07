@@ -2,10 +2,12 @@ package najtek.infra.user;
 
 import java.util.Collection;
 
+import najtek.domain.common.DomainObject;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-public class User implements UserDetails {
+public class User implements UserDetails, DomainObject {
 
 	private static final long serialVersionUID = -2980558110010612251L;
 	
@@ -43,8 +45,6 @@ public class User implements UserDetails {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-
 
 	@Override
 	public boolean isAccountNonExpired() {

@@ -28,21 +28,30 @@
 		<echo message="" />
 		<echo message="Available targets are:" />
 		<echo message="" />
-		<echo message="build     --> Build the application" />
-		<echo message="deploy    --> Deploy application as directory" />
-		<echo message="deploywar --> Deploy application as a WAR file" />		
-		<echo message="tests     --> List Tomcat applications" />
-		<echo message="clean     --> Clean output directories" />
-		<echo message="undeploy  --> Un-deploy application" />
+		<echo message="build      --> Build the application" />
+		<echo message="deploy     --> Deploy application as directory" />
+		<echo message="deploywar  --> Deploy application as a WAR file" />
+		<echo message="tests      --> List Tomcat applications" />
+		<echo message="clean      --> Clean output directories" />
+		<echo message="undeploy   --> Un-deploy application" />
+		<echo message="copymapper --> Copy *Mapper.xml files to deploy path" />
 		<echo message="" />
 	</target>
 
-	<target name="build" description="Compile main source tree java files">
+	<target name="build" depends="copymapper" description="Compile main source tree java files">
 		<mkdir dir="${build.dir}" />
 		<javac destdir="${build.dir}" source="1.8" target="1.8" debug="true" deprecation="false" optimize="false" failonerror="true">
 			<src path="${src.dir}" />
 			<classpath refid="master-classpath" />
 		</javac>
+	</target>
+
+	<target name="copymapper" description="Copies mapper.xml files">
+		<copy todir="${build.dir}" preservelastmodified="true" verbose="true">
+			<fileset dir="${src.dir}">
+				<include name="**/*.xml" />
+			</fileset>
+		</copy>
 	</target>
 
 	<target name="clean" description="Clean output directories">
