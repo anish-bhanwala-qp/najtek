@@ -36,19 +36,21 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	public void configure(HttpSecurity http) throws Exception {
 		http
 		.userDetailsService(userDetailsService())
+		.httpBasic()
+			.and()
         .authorizeRequests()
             .antMatchers("/secured/**").fullyAuthenticated()
             .antMatchers("/public/**", "/resources/**").permitAll()
             .anyRequest().authenticated()
             .and()
-        .formLogin()
+        /*.formLogin()
             .loginPage("/login")
             .usernameParameter("username")
             .passwordParameter("password")
             .loginProcessingUrl("/appLogin")
             .defaultSuccessUrl("/home")
             .permitAll()
-            .and()
+            .and()*/
         .logout()
             .permitAll()
             .and()
