@@ -1,16 +1,25 @@
 angular
 		.module('NAJTek')
 		.config(
-				function($routeProvider, $httpProvider) {
+				[
+						'$routeProvider',
+						'$httpProvider',
+						'AppConstant',
+						function($routeProvider, $httpProvider, AppConstant) {
+							$routeProvider
+									.when(
+											'/home',
+											{
+												templateUrl : AppConstant.HTML_PATH_PREFIX
+														+ 'home.html'
+											})
+									.when(
+											'/login',
+											{
+												templateUrl : AppConstant.HTML_PATH_PREFIX
+														+ 'login/login.html'
+											}).otherwise('/home');
 
-					$routeProvider.when('/', {
-						templateUrl : '/n/resources/app/index.html',
-						controller : 'home'
-					}).when('/login', {
-						templateUrl : 'login.html',
-						controller : 'LoginController'
-					}).otherwise('/');
+							$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
 
-					$httpProvider.defaults.headers.common["X-Requested-With"] = 'XMLHttpRequest';
-
-				})
+						} ]);

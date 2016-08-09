@@ -3,7 +3,8 @@ angular.module('NAJTek').factory(
 		[
 				'$http',
 				'$location',
-				function($http, $location) {
+				'AppConstant',
+				function($http, $location, AppConstant) {
 					var factory = {};
 
 					function getAuthenticationHeader(credentials) {
@@ -18,19 +19,24 @@ angular.module('NAJTek').factory(
 
 						var headers = getAuthenticationHeader(credentials);
 
-						$http.get('/n/user', {
+						$http.get(AppConstant.REST_PREFIX + 'user', {
 							headers : headers
 						}).success(function(data) {
-							/*if (data.name) {
-								$rootScope.authenticated = true;
-							} else {
-								$rootScope.authenticated = false;
-							}*/
+							/*
+							 * if (data.name) { $rootScope.authenticated = true; }
+							 * else { $rootScope.authenticated = false; }
+							 */
 							callback && callback(true, data);
 						}).error(function() {
 							callback && callback(false);
 						});
 
+					}
+					
+					factory.logout = function(callback) {
+						 $http.post(AppConstant.REST_PREFIX + 'logout', {}).finally(function() {
+							    callback(true);
+							  });
 					}
 
 					return factory;
