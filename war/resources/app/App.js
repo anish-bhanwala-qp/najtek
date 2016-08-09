@@ -1,1 +1,1 @@
-angular.module('NAJTek', [ 'ngRoute', 'ui-notification' ]);
+angular.module('NAJTek', [ 'ngRoute', 'ui-notification', 'cgBusy' ]);
