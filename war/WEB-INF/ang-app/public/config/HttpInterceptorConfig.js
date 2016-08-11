@@ -2,7 +2,12 @@ angular.module('NAJTek').config(
 		[
 				'$provide',
 				'$httpProvider',
-				function($provide, $httpProvider) {
+				'$injector',
+				function($provide, $httpProvider, $injector) {
+					function isAuthenticationDeniedForTemplate(response) {
+						return response.status === 401 && /\.html$/.test(response.config.url);
+					}
+					
 					$provide.factory('myHttpInterceptor', [ '$q', '$rootScope',
 							function($q, $rootScope) {
 								function showSpinner() {
@@ -44,7 +49,13 @@ angular.module('NAJTek').config(
 									// optional method
 									'responseError' : function(rejection) {
 										// do something on error
-										hideSpinner(true);
+										hideSpinner(true);										
+										
+										if (isAuthenticationDeniedForTemplate(rejection)) {
+											//injected manually to get around circular dependency problem.
+					                        var AuthService = $injector.get('Authentication');
+											window.location = '/n/ang-app/public/index.html#/login';
+							            }
 										return $q.reject(rejection);
 									}
 								};

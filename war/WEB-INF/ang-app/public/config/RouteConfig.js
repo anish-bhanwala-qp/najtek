@@ -10,13 +10,13 @@ angular
 									.when(
 											'/home',
 											{
-												templateUrl : AppConstant.HTML_PATH_PREFIX
+												templateUrl : AppConstant.HTML_PATH_PREFIX_SECURED
 														+ 'home.html'
 											})
 									.when(
 											'/login',
 											{
-												templateUrl : AppConstant.HTML_PATH_PREFIX
+												templateUrl : AppConstant.HTML_PATH_PREFIX_PUBLIC
 														+ 'login/login.html'
 											}).otherwise('/home');
 
