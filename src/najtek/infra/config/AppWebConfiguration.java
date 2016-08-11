@@ -1,10 +1,13 @@
 package najtek.infra.config;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -14,10 +17,27 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.spring4.SpringTemplateEngine;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
+import org.thymeleaf.templatemode.TemplateMode;
+import org.thymeleaf.templateresolver.ITemplateResolver;
+
 @EnableWebMvc
 @Configuration
 @ComponentScan({ "najtek.web", "najtek.infra.user" })
-public class AppWebConfiguration extends WebMvcConfigurerAdapter {
+public class AppWebConfiguration extends WebMvcConfigurerAdapter implements
+		ApplicationContextAware {
+
+	private static final String UTF8 = "UTF-8";
+	private static final String ANGULARJS_PATH_PREFIX = "/WEB-INF/ang-app/";
+
+	private ApplicationContext applicationContext;
+
+	public void setApplicationContext(ApplicationContext applicationContext) {
+		this.applicationContext = applicationContext;
+	}
 
 	@Bean
 	public ResourceBundleMessageSource messageSource() {
@@ -40,17 +60,9 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName(
-				"public/authentication/login");
-		registry.addViewController("/home").setViewName("secured/home");
-	}
-
-	@Bean
-	public InternalResourceViewResolver viewResolver() {
-		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/WEB-INF/jsp/");
-		viewResolver.setSuffix(".jsp");
-		return viewResolver;
+				ANGULARJS_PATH_PREFIX + "index.html");
+		registry.addViewController("/home").setViewName(
+				ANGULARJS_PATH_PREFIX + "home.html");
 	}
 
 	private HandlerInterceptor localeChangeInterceptor() {
@@ -58,5 +70,65 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter {
 		localeChangeInterceptor.setParamName("lang");
 
 		return localeChangeInterceptor;
+	}
+
+	@Bean
+	public ViewResolver angularjsHtmlViewResolver() {
+		return createViewResolver(angularjsHtmlTemplateResolver(), "text/html",
+				"*.html");
+	}
+
+	/*
+	 * @Bean public ViewResolver nonAngularjsHtmlViewResolver() { return
+	 * createViewResolver(nonAngularjsHtmlTemplateResolver(), "text/html",
+	 * "*.html"); }
+	 */
+
+	@Bean
+	public ViewResolver angularjsJavascriptViewResolver() {
+		return createViewResolver(angularjsJavascriptTemplateResolver(),
+				"application/javascript", "*.js");
+	}
+
+	private ViewResolver createViewResolver(ITemplateResolver templateResolver,
+			String contentType, String viewName) {
+		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+		resolver.setTemplateEngine(templateEngine(templateResolver));
+		resolver.setContentType(contentType);
+		resolver.setCharacterEncoding(UTF8);
+		resolver.setViewNames(array(viewName));
+		return resolver;
+	}
+
+	private TemplateEngine templateEngine(ITemplateResolver templateResolver) {
+		SpringTemplateEngine engine = new SpringTemplateEngine();
+		engine.setTemplateResolver(templateResolver);
+		return engine;
+	}
+
+	private ITemplateResolver angularjsHtmlTemplateResolver() {
+		return createTemplateResolver(ANGULARJS_PATH_PREFIX, TemplateMode.HTML);
+	}
+
+	private ITemplateResolver nonAngularjsHtmlTemplateResolver() {
+		return createTemplateResolver("/WEB-INF/views/", TemplateMode.HTML);
+	}
+
+	private ITemplateResolver angularjsJavascriptTemplateResolver() {
+		return createTemplateResolver(ANGULARJS_PATH_PREFIX,
+				TemplateMode.JAVASCRIPT);
+	}
+
+	private ITemplateResolver createTemplateResolver(String prefix,
+			TemplateMode mode) {
+		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
+		resolver.setApplicationContext(applicationContext);
+		resolver.setPrefix(prefix);
+		resolver.setTemplateMode(mode);
+		return resolver;
+	}
+
+	public String[] array(String... args) {
+		return args;
 	}
 }
