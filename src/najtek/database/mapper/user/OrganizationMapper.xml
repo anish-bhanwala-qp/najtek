@@ -1,0 +1,30 @@
+<!--<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="najtek.database.dao.user.OrganizationMapper">
+	
+	<typeAlias type=”najtek.domain.user.Organization” alias=”Organization”/>
+	
+	<select id="selectById" parameterType="Organization" resultType="Organization">
+		select * from organization where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="Organization"
+			useGeneratedKeys=”true” keyProperty=”id”>
+		insert into organization (name, 
+							primary_user_id, 
+							default_database) 
+						values (#{name}, 
+							#{primaryUserId},
+							#{defaultDatabase})
+	</insert>	
+	
+	<update id="update" parameterType="Organization">
+		update organization set
+				name = #{name},
+				primary_user_id = #{primaryUserId},
+				default_database = #{defaultDatabase}}
+			where id = #{id}
+	</update>		
+</mapper>-->

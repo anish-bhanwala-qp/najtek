@@ -5,19 +5,23 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import najtek.database.mapper.user.OrganizationMapper;
 import najtek.database.mapper.user.UserMapper;
+import najtek.database.mapper.user.UserRoleMapper;
 
 import org.apache.ibatis.mapping.Environment;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan({ "najtek.infra.user", "najtek.database.common" , "najtek.database.dao"})
+@MapperScan("{najtek.database.mapper}")
 public class AppDatabaseConfiguration {
 
 	private static final String MAIN_DATSOURCE_NAME = "jdbc/NAJTekMainDB";
@@ -61,5 +65,7 @@ public class AppDatabaseConfiguration {
 	
 	private void registerMappers(org.apache.ibatis.session.Configuration configuration) {
 		configuration.addMapper(UserMapper.class);
+		configuration.addMapper(UserRoleMapper.class);
+		configuration.addMapper(OrganizationMapper.class);
 	}
 }

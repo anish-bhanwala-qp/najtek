@@ -1,5 +1,7 @@
 package najtek.database.dao.user;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -13,17 +15,47 @@ public class UserDao {
 	@Autowired
 	private DatabaseQueryUtil executeDatabaseQuery;
 
+	@Autowired
+	private SqlSessionFactory sqlSessionFactory;
+
 	public User selectById(long id) {
-		User user = new User();
-		user.setId(id);
-		return (User) executeDatabaseQuery.selectOne(user,
-				UserMapper.NAMESPACE, "selectById");
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			UserMapper mapper = session.getMapper(UserMapper.class);
+			return mapper.selectById(id);
+		} finally {
+			session.close();
+		}
+
 	}
 
 	public User selectByUsername(String username) {
-		User user = new User();
-		user.setUsername(username);
-		return (User) executeDatabaseQuery.selectOne(user,
-				UserMapper.NAMESPACE, "selectByUsername");
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			UserMapper mapper = session.getMapper(UserMapper.class);
+			return mapper.selectByUsername(username);
+		} finally {
+			session.close();
+		}
+	}
+
+	public void update(User user) {
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			UserMapper mapper = session.getMapper(UserMapper.class);
+			mapper.update(user);
+		} finally {
+			session.close();
+		}
+	}
+
+	public void insert(User user) {
+		SqlSession session = sqlSessionFactory.openSession();
+		try {
+			UserMapper mapper = session.getMapper(UserMapper.class);
+			mapper.insert(user);
+		} finally {
+			session.close();
+		}
 	}
 }

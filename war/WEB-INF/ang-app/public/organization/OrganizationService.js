@@ -1,20 +1,11 @@
 angular.module('NAJTek').factory(
-		'AuthenticationService',
+		'OrganizationService',
 		[
 				'$http',
 				'$location',
 				'AppConstant',
 				function($http, $location, AppConstant) {
 					var factory = {};
-					var authenticatedUser = {};
-
-					function getAuthenticationHeader(credentials) {
-						return credentials ? {
-							authorization : "Basic "
-									+ btoa(credentials.username + ":"
-											+ credentials.password)
-						} : {};
-					}
 
 					factory.authenticate = function(credentials, callback) {
 
@@ -27,16 +18,11 @@ angular.module('NAJTek').factory(
 							 * if (data.name) { $rootScope.authenticated = true; }
 							 * else { $rootScope.authenticated = false; }
 							 */
-							authenticatedUser = data;
 							callback && callback(true, data);
 						}).error(function() {
 							callback && callback(false);
 						});
 
-					}
-					
-					factory.getAuthenticatedUser = function() {
-						return authenticatedUser;
 					}
 					
 					factory.logout = function(callback) {

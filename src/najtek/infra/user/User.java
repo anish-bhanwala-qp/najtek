@@ -2,6 +2,8 @@ package najtek.infra.user;
 
 import java.util.Collection;
 
+import javax.validation.constraints.NotNull;
+
 import najtek.domain.common.DomainObject;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -14,15 +16,21 @@ public class User implements UserDetails, DomainObject {
 	private static final long serialVersionUID = -2980558110010612251L;
 	
 	private long id;
-	private String username;
+	
+	@NotNull
+	private String emailAddress;
+	private String firstName;
+	private String middleName;
+	private String lastName;
 	
 	@JsonIgnore
+	@NotNull
 	private String password;
 	
 	public User() {}
 	
 	public User(String username, String password) {
-		this.username = username;
+		this.emailAddress = username;
 		this.password = password;
 	}
 
@@ -34,11 +42,11 @@ public class User implements UserDetails, DomainObject {
 	
 	@Override
 	public String getUsername() {
-		return username;
+		return emailAddress;
 	}
 
 	public void setUsername(String username) {
-		this.username = username;
+		this.emailAddress = username;
 	}
 
 	@Override
@@ -76,5 +84,29 @@ public class User implements UserDetails, DomainObject {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getMiddleName() {
+		return middleName;
+	}
+
+	public void setMiddleName(String middleName) {
+		this.middleName = middleName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}	
 }
