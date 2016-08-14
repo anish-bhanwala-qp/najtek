@@ -1,6 +1,9 @@
 package najtek.infra.user;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
@@ -18,7 +21,7 @@ public class User implements UserDetails, DomainObject {
 	private long id;
 	
 	@NotNull
-	private String emailAddress;
+	private String username;
 	private String firstName;
 	private String middleName;
 	private String lastName;
@@ -30,23 +33,22 @@ public class User implements UserDetails, DomainObject {
 	public User() {}
 	
 	public User(String username, String password) {
-		this.emailAddress = username;
+		this.username = username;
 		this.password = password;
 	}
 
 	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return null;
+	public Collection<GrantedAuthority> getAuthorities() {
+		return new ArrayList<>();
 	}
-
 	
 	@Override
 	public String getUsername() {
-		return emailAddress;
+		return username;
 	}
 
 	public void setUsername(String username) {
-		this.emailAddress = username;
+		this.username = username;
 	}
 
 	@Override
@@ -108,5 +110,13 @@ public class User implements UserDetails, DomainObject {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}	
+	}
+
+	public String getEmailAddress() {
+		return username;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.username = emailAddress;
+	}
 }

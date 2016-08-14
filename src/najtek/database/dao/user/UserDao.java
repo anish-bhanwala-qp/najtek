@@ -1,61 +1,72 @@
 package najtek.database.dao.user;
 
+import najtek.database.common.DatabaseInsert;
+import najtek.database.common.DatabaseSelect;
+import najtek.database.common.DatabaseUpdate;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import najtek.database.common.DatabaseQueryUtil;
 import najtek.database.mapper.user.UserMapper;
 import najtek.infra.user.User;
 
 @Repository
 public class UserDao {
-
-	@Autowired
-	private DatabaseQueryUtil executeDatabaseQuery;
+	private final Logger logger = LoggerFactory.getLogger(UserDao.class);
 
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
 
-	public User selectById(long id) {
-		SqlSession session = sqlSessionFactory.openSession();
-		try {
-			UserMapper mapper = session.getMapper(UserMapper.class);
-			return mapper.selectById(id);
-		} finally {
-			session.close();
-		}
+	private UserMapper getMapper(SqlSession session) {
+		return session.getMapper(UserMapper.class);
+	}
 
+	public User selectById(long id) {
+		DatabaseSelect select = new DatabaseSelect() {
+			@Override
+			public Object processSelect(SqlSession session) {
+				return getMapper(session).selectById(id);
+			}
+		};
+
+		return (User)select.fire(sqlSessionFactory);
 	}
 
 	public User selectByUsername(String username) {
-		SqlSession session = sqlSessionFactory.openSession();
-		try {
-			UserMapper mapper = session.getMapper(UserMapper.class);
-			return mapper.selectByUsername(username);
-		} finally {
-			session.close();
-		}
+		DatabaseSelect select = new DatabaseSelect() {
+			@Override
+			public Object processSelect(SqlSession session) {
+				logger.info("************EXECUTING selectByUsername COMMAND**************");
+				System.out.println("************EXECUTING selectByUsername COMMAND**************");
+				return  getMapper(session).selectByUsername(username);
+			}
+		};
+
+		return (User)select.fire(sqlSessionFactory);
 	}
 
 	public void update(User user) {
-		SqlSession session = sqlSessionFactory.openSession();
-		try {
-			UserMapper mapper = session.getMapper(UserMapper.class);
-			mapper.update(user);
-		} finally {
-			session.close();
-		}
+		DatabaseUpdate update = new DatabaseUpdate() {
+			@Override
+			public void process(SqlSession session) {
+				getMapper(session).update(user);
+			}
+		};
+
+		update.fire(sqlSessionFactory);
 	}
 
 	public void insert(User user) {
-		SqlSession session = sqlSessionFactory.openSession();
-		try {
-			UserMapper mapper = session.getMapper(UserMapper.class);
-			mapper.insert(user);
-		} finally {
-			session.close();
-		}
+		DatabaseInsert insert = new DatabaseInsert() {
+			@Override
+			public void process(SqlSession session) {
+				getMapper(session).insert(user);
+			}
+		};
+
+		insert.fire(sqlSessionFactory);
 	}
 }

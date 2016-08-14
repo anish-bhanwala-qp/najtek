@@ -1,17 +1,22 @@
 package najtek.infra.init;
 
 
-import najtek.infra.config.AppDatabaseConfiguration;
-import najtek.infra.config.AppSecurityConfiguration;
-import najtek.infra.config.AppWebConfiguration;
+import najtek.infra.config.*;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 public class AppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
+    static {
+        System.setProperty("org.slf4j.simpleLogger.defaultLogLevel", "DEBUG");
+    }
 
-	@Override
+    @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] { AppDatabaseConfiguration.class, AppSecurityConfiguration.class };
+        return new Class[] {
+                AppDatabaseConfiguration.class,
+                AuthenticationManagerConfiguration.class,
+                AppSecurityConfiguration.class
+        };
     }
 
     @Override

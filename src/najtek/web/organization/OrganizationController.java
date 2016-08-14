@@ -4,6 +4,7 @@ import najtek.database.common.AppDatabase;
 import najtek.database.dao.user.OrganizationDao;
 import najtek.domain.user.Organization;
 
+import najtek.web.APISecuredController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class OrganizationController {
+public class OrganizationController extends APISecuredController {
 	/*
 	 * @RequestMapping(value = "/organization", method = RequestMethod.GET)
 	 * public ResponseEntity<List<User>> listAllUsers() { List<User> users =

@@ -1,5 +1,8 @@
 package najtek.database.dao.user;
 
+import najtek.database.common.DatabaseInsert;
+import najtek.database.common.DatabaseSelect;
+import najtek.database.common.DatabaseUpdate;
 import najtek.database.mapper.user.UserRoleMapper;
 import najtek.domain.user.UserRole;
 
@@ -8,39 +11,48 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class UserRoleDao {
+
 	@Autowired
 	private SqlSessionFactory sqlSessionFactory;
 
-	public UserRole selectById(long id) {
-		SqlSession session = sqlSessionFactory.openSession();
-		try {
-			UserRoleMapper mapper = session.getMapper(UserRoleMapper.class);
-			return mapper.selectByUserId(id);
-		} finally {
-			session.close();
-		}
+	public List<UserRole> selectByUserId(long userId) {
+		DatabaseSelect select = new DatabaseSelect() {
+			@Override
+			public Object processSelect(SqlSession session) {
+				return getMapper(session).selectByUserId(userId);
+			}
+		};
 
+		return (List<UserRole>) select.fire(sqlSessionFactory);
 	}
 
 	public void delete(UserRole userRole) {
-		SqlSession session = sqlSessionFactory.openSession();
-		try {
-			UserRoleMapper mapper = session.getMapper(UserRoleMapper.class);
-			mapper.delete(userRole.getId());
-		} finally {
-			session.close();
-		}
+		DatabaseUpdate update = new DatabaseUpdate() {
+			@Override
+			public void process(SqlSession session) {
+				getMapper(session).delete(userRole.getId());
+			}
+		};
+
+		update.fire(sqlSessionFactory);
 	}
 
 	public void insert(UserRole userRole) {
-		SqlSession session = sqlSessionFactory.openSession();
-		try {
-			UserRoleMapper mapper = session.getMapper(UserRoleMapper.class);
-			mapper.insert(userRole);
-		} finally {
-			session.close();
-		}
+		DatabaseInsert insert = new DatabaseInsert() {
+			@Override
+			public void process(SqlSession session) {
+				getMapper(session).insert(userRole);
+			}
+		};
+
+		insert.fire(sqlSessionFactory);
+	}
+
+	private UserRoleMapper getMapper(SqlSession session) {
+		return session.getMapper(UserRoleMapper.class);
 	}
 }

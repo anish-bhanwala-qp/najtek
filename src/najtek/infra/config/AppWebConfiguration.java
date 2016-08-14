@@ -27,11 +27,11 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 @EnableWebMvc
 @Configuration
 @ComponentScan({ "najtek.web", "najtek.infra.user" })
-public class AppWebConfiguration extends WebMvcConfigurerAdapter implements
-		ApplicationContextAware {
+public class AppWebConfiguration extends WebMvcConfigurerAdapter
+		implements ApplicationContextAware {
 
 	private static final String UTF8 = "UTF-8";
-	private static final String ANGULARJS_PATH_PREFIX = "/WEB-INF/ang-app/";
+	private static final String ANGULARJS_PATH_PREFIX = "/app/";
 
 	private ApplicationContext applicationContext;
 
@@ -47,10 +47,12 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter implements
 	}
 
 	@Override
-	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		registry.addResourceHandler("/resources/**").addResourceLocations(
-				"/resources/");
-	}
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/");
+        registry.addResourceHandler("/app/**")
+                .addResourceLocations("/app/");
+    }
 
 	@Override
 	public void addInterceptors(InterceptorRegistry interceptRegistry) {
@@ -60,9 +62,9 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter implements
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName(
-				ANGULARJS_PATH_PREFIX + "index.html");
+				ANGULARJS_PATH_PREFIX + "public/index.html");
 		registry.addViewController("/home").setViewName(
-				ANGULARJS_PATH_PREFIX + "home.html");
+				ANGULARJS_PATH_PREFIX + "secured/home.html");
 	}
 
 	private HandlerInterceptor localeChangeInterceptor() {
@@ -72,23 +74,26 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter implements
 		return localeChangeInterceptor;
 	}
 
-	@Bean
-	public ViewResolver angularjsHtmlViewResolver() {
-		return createViewResolver(angularjsHtmlTemplateResolver(), "text/html",
+    @Bean
+    public InternalResourceViewResolver viewResolver() {
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setViewClass(JstlView.class);
+        viewResolver.setPrefix("/WEB-INF/jsp/");
+        viewResolver.setSuffix(".jsp");
+        return viewResolver;
+    }
+
+	/*@Bean
+	public ViewResolver nonAngularjsHtmlViewResolver() {
+		return createViewResolver(nonAngularjsHtmlTemplateResolver(), "text/html",
 				"*.html");
 	}
 
-	/*
-	 * @Bean public ViewResolver nonAngularjsHtmlViewResolver() { return
-	 * createViewResolver(nonAngularjsHtmlTemplateResolver(), "text/html",
-	 * "*.html"); }
-	 */
-
-	@Bean
+	*//*@Bean
 	public ViewResolver angularjsJavascriptViewResolver() {
 		return createViewResolver(angularjsJavascriptTemplateResolver(),
 				"application/javascript", "*.js");
-	}
+	}*//*
 
 	private ViewResolver createViewResolver(ITemplateResolver templateResolver,
 			String contentType, String viewName) {
@@ -130,5 +135,5 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter implements
 
 	public String[] array(String... args) {
 		return args;
-	}
+	}*/
 }

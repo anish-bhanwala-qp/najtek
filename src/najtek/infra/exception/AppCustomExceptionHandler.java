@@ -15,11 +15,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 public class AppCustomExceptionHandler {
-	@ResponseStatus(HttpStatus.BAD_REQUEST)
+
+	/*@ResponseStatus(HttpStatus.BAD_REQUEST)
 	@ResponseBody
 	@ExceptionHandler({ MethodArgumentNotValidException.class,
-			CustomValidationException.class })
-	public Map<String, String> processCalidationExceptions(
+			CustomValidationException.class })*/
+	public Map<String, String> processValidationExceptions(
 			HttpServletRequest request, Exception ex) {
 		Map<String, String> validationErrors = new HashMap<>();
 		if (ex instanceof MethodArgumentNotValidException) {

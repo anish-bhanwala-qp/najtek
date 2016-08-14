@@ -20,7 +20,7 @@ public class HelloController {
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
-	@RequestMapping(value = "/public", method = RequestMethod.GET)
+
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 

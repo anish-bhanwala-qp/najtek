@@ -6,6 +6,10 @@ apache-tomcat-9.0.0.M9/logs/*
 apache-tomcat-9.0.0.M9/webapps
 apache-tomcat-9.0.0.M9/work
 
+#Intellij
+.idea
+*.iml
+
 #Eclipse files
 *.project
 *.classpath
