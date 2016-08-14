@@ -10,17 +10,25 @@ angular.module('NAJTek').config(
 					
 					$provide.factory('myHttpInterceptor', [ '$q', '$rootScope',
 							function($q, $rootScope) {
+
 								function showSpinner() {
-									$rootScope.currentPromise = $q.defer();
+								    $rootScope.deferred = $q.defer();
+									$rootScope.currentPromise = $rootScope.deferred.promise;
+									console.log('Starting Spinner');
 								}
 								
 								function hideSpinner(reject) {
-									if (typeof $rootScope.currentPromise != 'undefined') {
+									if (typeof $rootScope.deferred != 'undefined'
+									        && $rootScope.deferred != null) {
 										if (reject) {
-											$rootScope.currentPromise.reject();
+										    console.log('Rejecting Spinner');
+											$rootScope.deferred.reject();
 										} else {
-											$rootScope.currentPromise.resolve();	
-										}										
+										    console.log('Resolving Spinner');
+											$rootScope.deferred.resolve();
+										}
+
+                                        $rootScope.deferred = null;
 									}
 								}
 								

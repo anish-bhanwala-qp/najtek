@@ -52,7 +52,7 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                     .antMatchers("/api/secured/**", "/app/secured/**").fullyAuthenticated()
-                    .antMatchers("/api/public/**", "/app/public/**").permitAll()
+                    .antMatchers("/api/public/**", "/app/public/**", "/resources/**").permitAll()
                     .anyRequest().fullyAuthenticated()
                 .and()
                     .formLogin()
