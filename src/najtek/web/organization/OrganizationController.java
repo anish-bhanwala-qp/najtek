@@ -4,11 +4,14 @@ import najtek.database.common.AppDatabase;
 import najtek.database.dao.user.OrganizationDao;
 import najtek.domain.user.Organization;
 
+import najtek.infra.validation.ControllerValidationHandler;
+import najtek.infra.validation.ValidationError;
 import najtek.web.APISecuredController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
@@ -24,11 +27,11 @@ import java.util.List;
 @RestController
 public class OrganizationController extends APISecuredController {
 
-    @Autowired
-    private Validator validator;
-	
 	@Autowired
 	private OrganizationDao organizationDao;
+
+    @Autowired
+    private ControllerValidationHandler controllerValidationHandler;
 
 	@RequestMapping(value = "/organization/{id}", 
 			method = RequestMethod.GET)
@@ -43,12 +46,12 @@ public class OrganizationController extends APISecuredController {
 	}
 
 	@RequestMapping(value = "/organization", method = RequestMethod.POST)
-	public ResponseEntity createOrganization(@Validated @RequestBody Organization organization,
+	public ResponseEntity createOrganization(@Valid @RequestBody Organization organization,
                                            BindingResult bindingResult) {
 		System.out.println("Creating Organization " + organization.getName());
 
 		if (bindingResult.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(bindingResult.getAllErrors());
+		    return controllerValidationHandler.getValidationErrorResponse(bindingResult);
         }
 		organization.setDefaultDatabase(AppDatabase.maindb);
 
