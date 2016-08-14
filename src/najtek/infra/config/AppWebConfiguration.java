@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -17,6 +18,8 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import javax.validation.Validator;
+
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.spring4.SpringTemplateEngine;
 import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
@@ -26,7 +29,7 @@ import org.thymeleaf.templateresolver.ITemplateResolver;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan({ "najtek.web", "najtek.infra.user" })
+@ComponentScan({ "najtek.web", "najtek.infra.user", "najtek.infra.validation" })
 public class AppWebConfiguration extends WebMvcConfigurerAdapter
 		implements ApplicationContextAware {
 
@@ -38,6 +41,11 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter
 	public void setApplicationContext(ApplicationContext applicationContext) {
 		this.applicationContext = applicationContext;
 	}
+
+    @Bean
+    public Validator localValidatorFactoryBean() {
+        return new LocalValidatorFactoryBean();
+    }
 
 	@Bean
 	public ResourceBundleMessageSource messageSource() {

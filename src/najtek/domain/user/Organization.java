@@ -10,8 +10,8 @@ public class Organization implements DomainObject {
 
 	private long id;
 	
-	@NotNull
-	@Size(max = 64)
+	@NotNull(message = "generic.name.required.error")
+	@Size(min = 3, max = 64, message = "generic.name.min.length.error")
 	private String name;
 	
 	private AppDatabase defaultDatabase;
