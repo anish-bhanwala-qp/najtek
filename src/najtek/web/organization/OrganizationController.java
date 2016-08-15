@@ -4,6 +4,8 @@ import najtek.database.common.AppDatabase;
 import najtek.database.dao.user.OrganizationDao;
 import najtek.domain.user.Organization;
 
+import najtek.infra.utility.AlertMessageService;
+import najtek.infra.utility.RESTResponse;
 import najtek.infra.validation.ControllerValidationHandler;
 import najtek.infra.validation.ValidationError;
 import najtek.web.APISecuredController;
@@ -31,7 +33,7 @@ public class OrganizationController extends APISecuredController {
 	private OrganizationDao organizationDao;
 
     @Autowired
-    private ControllerValidationHandler controllerValidationHandler;
+    private RESTResponse restResponse;
 
 	@RequestMapping(value = "/organization/{id}", 
 			method = RequestMethod.GET)
@@ -51,7 +53,8 @@ public class OrganizationController extends APISecuredController {
 		System.out.println("Creating Organization " + organization.getName());
 
 		if (bindingResult.hasErrors()) {
-		    return controllerValidationHandler.getValidationErrorResponse(bindingResult);
+		    return restResponse.getValidationErrorResponse(bindingResult,
+                    "generic.validation.errors");
         }
 		organization.setDefaultDatabase(AppDatabase.maindb);
 
@@ -63,6 +66,6 @@ public class OrganizationController extends APISecuredController {
 
 		//organizationDao.insert(organization);
 
-		return ResponseEntity.ok(organization);
+		return restResponse.getSuccessResponse(organization);
 	}
 }

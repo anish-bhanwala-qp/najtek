@@ -1,8 +1,7 @@
 package najtek.infra.validation;
 
+import najtek.infra.utility.MessageSourceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ import java.util.Locale;
 @Service
 public class ControllerValidationHandler {
     @Autowired
-    private MessageSource messageSource;
+    private MessageSourceUtil messageSourceUtil;
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -45,15 +44,9 @@ public class ControllerValidationHandler {
 
     private ValidationError processFieldError(FieldError error) {
         if (error != null) {
-            Locale currentLocale = LocaleContextHolder.getLocale();
-            String message = messageSource.getMessage(error.getDefaultMessage(), null, currentLocale);
+            String message = messageSourceUtil.getMessageByKey(error.getDefaultMessage());
             return  new ValidationError(error.getField(), message);
         }
         return null;
-    }
-
-    public ResponseEntity getValidationErrorResponse(BindingResult bindingResult) {
-        List<ValidationError> errors = processValidationError(bindingResult);
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
     }
 }
