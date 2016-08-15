@@ -5,5 +5,6 @@ angular.module('NAJTek').constant('AppConstant', {
 	REST_PUBLIC_PREFIX: '/n/api/public/',
 	REST_SECURED_PREFIX: '/n/api/secured/',
 	SUCCESS_HEADER: 'Success-Message',
-	ERROR_HEADER: 'Error-Message'
+	ERROR_HEADER: 'Error-Message',
+	APP_TITLE: 'NAJTek'
 });

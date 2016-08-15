@@ -1,0 +1,16 @@
+<h1>Search School</h1>
+<div class="input-group" style="max-width: 700px;">
+    <input type="text" class="form-control" placeholder="Search School">
+    <span class="input-group-btn">
+        <button class="btn btn-default" type="button">Go!</button>
+      </span>
+</div>
+
+<div style="max-width: 700px;">
+    <ul class="list-group">
+        <li class="list-group-item" ng-repeat="organization in msCtrl.organizations">
+            <strong ng-bind="organization.name"></strong>
+            <div><em ng-bind="organization.schools[0].name"></em></div>
+        </li>
+    </ul>
+</div>
