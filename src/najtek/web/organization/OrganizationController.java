@@ -35,16 +35,24 @@ public class OrganizationController extends APISecuredController {
     @Autowired
     private RESTResponse restResponse;
 
-	@RequestMapping(value = "/organization/{id}", 
-			method = RequestMethod.GET)
-	public Organization getOrganization(@PathVariable("id") long id) {
+	@RequestMapping(value = "/organization/{id}", method = RequestMethod.GET)
+	public ResponseEntity getOrganization(@PathVariable("id") long id) {
 		System.out.println("Fetching organization with id " + id);
 		Organization organization = organizationDao.selectById(id);
 		if (organization == null) {
 			System.out.println("organiztion with id " + id + " not found");
-			//return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
 		}
-		return organization;
+		return restResponse.getSuccessResponse(organization);
+	}
+
+	@RequestMapping(value = "/organization", method = RequestMethod.GET)
+	public ResponseEntity getAllOrganization() {
+		System.out.println("Fetching organization All");
+		List<Organization> organizations = organizationDao.selectAll();
+		if (organizations == null) {
+			System.out.println("organizations not found");
+		}
+		return restResponse.getSuccessResponse(organizations);
 	}
 
 	@RequestMapping(value = "/organization", method = RequestMethod.POST)
@@ -56,16 +64,18 @@ public class OrganizationController extends APISecuredController {
 		    return restResponse.getValidationErrorResponse(bindingResult,
                     "generic.validation.errors");
         }
+
+        if (organizationDao.selectByName(organization.getName()) != null) {
+            FieldError fieldError = new FieldError("Organization",
+                    "name", "organization.add.name.already.exists.error");
+            return restResponse.getValidationErrorResponse("generic.validation.errors",
+                    fieldError);
+        }
+
 		organization.setDefaultDatabase(AppDatabase.maindb);
 
-		/*if (userService.isUserExist(user)) {
-			System.out.println("A User with name " + user.getUsername()
-					+ " already exist");
-			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-		}*/
+		organizationDao.insert(organization);
 
-		//organizationDao.insert(organization);
-
-		return restResponse.getSuccessResponse(organization);
+		return restResponse.getSuccessResponse(organization, "organization.add.success");
 	}
 }

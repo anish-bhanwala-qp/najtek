@@ -6,7 +6,7 @@ angular.module('NAJTek').factory(
 				'AppConstant',
 				function($http, $location, AppConstant) {
 					var factory = {};
-					var authenticatedUser = {};
+					var authenticatedUser = {navLinks: []};
 
 					function getAuthenticationHeader(credentials) {
 						return credentials ? {
@@ -16,14 +16,19 @@ angular.module('NAJTek').factory(
 						} : {};
 					}
 
-					factory.login = function(credentials, callback) {
-                        $http.post(AppConstant.REST_PREFIX + 'login', credentials)
+					factory.getAuthenticatedUser = function(callback) {
+					    if (authenticatedUser.id) {
+					        return authenticatedUser;
+					    }
+                        $http.get(AppConstant.REST_PREFIX + 'user')
                             .success(function(data) {
-                                authenticatedUser = data;
-                                callback && callback(true, data);
-                            }).error(function() {
-                                callback && callback(false);
+                                angular.extend(authenticatedUser, data.principal);
+                                console.log(authenticatedUser);
+                                callback && callback(authenticatedUser);
+                            }).error(function(error) {
+                                console.log(error);
                             });
+                        return authenticatedUser;
                     };
 
 					factory.authenticate = function(credentials, callback) {
@@ -43,10 +48,6 @@ angular.module('NAJTek').factory(
 							callback && callback(false);
 						});
 
-					};
-					
-					factory.getAuthenticatedUser = function() {
-						return authenticatedUser;
 					};
 					
 					factory.logout = function(callback) {

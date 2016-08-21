@@ -27,25 +27,12 @@
 <![endif]-->
 <div cg-busy="currentPromise"></div>
 
-<nt-navbar-component navLinks="<c:out value="${navigationLinks}"/>"></nt-navbar-component>
+<nt-navbar-component></nt-navbar-component>
 
 <div class="container">
     <div class="row row-offcanvas row-offcanvas-left">
 
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-            <div class="list-group">
-                <a href="#" class="list-group-item active">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-                <a href="#" class="list-group-item">Link</a>
-            </div>
-        </div><!--/.sidebar-offcanvas-->
+        <nt-left-navigation-component></nt-left-navigation-component>
 
         <div class="col-xs-12 col-sm-9">
             <p class="visible-xs">
@@ -67,20 +54,26 @@
 
 <script src="/n/resources/js/vendor/angular-ui-notification.min.js"></script>
 <script src="/n/resources/js/vendor/angular-busy.min.js"></script>
-<script src="/n/resources/js/vendor/ui-bootstrap-tpls-2.0.1.min.js"></script>
+<script src="/n/resources/js/vendor/ui-bootstrap-tpls-2.1.1.min.js"></script>
 
 <script src="/n/app/public/App.js"></script>
-<script src="/n/app/public/login/LoginController.js"></script
-<script src="/n/app/public/config/HttpInterceptorConfig.js"></script>
+<script src="/n/app/public/login/LoginController.js"></script>
 <script src="/n/app/public/auth/AuthenticationService.js"></script>
 <script src="/n/app/public/constant/AppConstant.js"></script>
 
+<script src="/n/app/public/config/HttpInterceptorConfig.js"></script>
 <script src="/n/app/secured/config/RouteConfig.js"></script>
-<script src="/n/app/secured/navigation/NavBarComponent.js"></script>
+
 <script src="/n/app/secured/school/SchoolResource.js"></script>
+
 <script src="/n/app/secured/admin/manage-school/ManageSchoolComponent.js"></script>
-<script src="/n/app/secured/organization/OrganizationComponent.js"></script>
-<script src="/n/app/secured/organization/OrganizationResource.js"></script>
+<script src="/n/app/secured/admin/organization/OrganizationComponent.js"></script>
+<script src="/n/app/secured/admin/organization/OrganizationResource.js"></script>
+<script src="/n/app/secured/admin/organization/AddOrganizationComponent.js"></script>
+
+<script src="/n/app/secured/navigation/NavBarComponent.js"></script>
+<script src="/n/app/secured/navigation/LeftNavigationService.js"></script>
+<script src="/n/app/secured/navigation/LeftNavigationComponent.js"></script>
 
 <script>
     $(document).ready(function () {

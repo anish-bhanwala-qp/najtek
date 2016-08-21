@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import najtek.database.dao.user.OrganizationDao;
 import najtek.database.dao.user.UserCache;
 import najtek.database.dao.user.UserDao;
@@ -22,113 +23,110 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class User implements UserDetails, DomainObject {
 
-	private static final long serialVersionUID = -2980558110010612251L;
+    private static final long serialVersionUID = -2980558110010612251L;
 
-    private UserCache userCache;
-	
-	private long id;
-	
-	@NotNull
-	private String username;
-	private String firstName;
-	private String middleName;
-	private String lastName;
+    private long id;
+
+    @NotNull
+    private String username;
+    private String firstName;
+    private String middleName;
+    private String lastName;
 
     private long organizationId;
-	
-	@JsonIgnore
-	@NotNull
-	private String password;
-	
-	public User() {}
-	
-	public User(String username, String password) {
-		this.username = username;
-		this.password = password;
-	}
 
-	@Override
-	public Collection<GrantedAuthority> getAuthorities() {
-		return new ArrayList<>();
-	}
-	
-	@Override
-	public String getUsername() {
-		return username;
-	}
+    @JsonIgnore
+    @NotNull
+    private String password;
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    /*All Non-serializable properties here*/
+    private transient UserCache userCache;
 
-	@Override
-	public String getPassword() {
-		return password;
-	}
+    public User() {}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+    @Override
+    public Collection<GrantedAuthority> getAuthorities() {
+        return new ArrayList<>();
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    @Override
+    public String getUsername() {
+        return username;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+    @Override
+    public String getPassword() {
+        return password;
+    }
 
-	public long getId() {
-		return id;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setId(long id) {
-		this.id = id;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	public String getFirstName() {
-		return firstName;
-	}
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
 
-	public String getMiddleName() {
-		return middleName;
-	}
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
+    public long getId() {
+        return id;
+    }
 
-	public String getLastName() {
-		return lastName;
-	}
+    public void setId(long id) {
+        this.id = id;
+    }
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
+    public String getFirstName() {
+        return firstName;
+    }
 
-	public String getEmailAddress() {
-		return username;
-	}
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-	public void setEmailAddress(String emailAddress) {
-		this.username = emailAddress;
-	}
+    public String getMiddleName() {
+        return middleName;
+    }
+
+    public void setMiddleName(String middleName) {
+        this.middleName = middleName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmailAddress() {
+        return username;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.username = emailAddress;
+    }
 
     public long getOrganizationId() {
         return organizationId;
@@ -139,11 +137,11 @@ public class User implements UserDetails, DomainObject {
     }
 
     public List<UserRole> getUserRoles() {
-	    return userCache.getUserRoles();
+        return userCache.getUserRoles();
     }
 
     public void initUserCache(UserRoleDao userRoleDao,
-                                    OrganizationDao organizationDao) {
+                              OrganizationDao organizationDao) {
         userCache = new UserCache(userRoleDao, organizationDao, this);
     }
 
@@ -151,14 +149,14 @@ public class User implements UserDetails, DomainObject {
         return userCache.getOrganization();
     }
 
-    public List<NavigationLink> getNavigationLinks() {
+    @JsonProperty("navLinks")
+    public List<NavigationLink> setupNavigationLinks() {
         List<NavigationLink> navigationLinks = new ArrayList<>();
         for (UserRole userRole: getUserRoles()) {
             if (userRole.getRole() == Role.ADMIN) {
                 navigationLinks.add(new NavigationLink("Admin", "/admin"));
             }
         }
-
         return navigationLinks;
     }
 }

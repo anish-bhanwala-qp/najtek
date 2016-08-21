@@ -11,6 +11,8 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class OrganizationDao {
 	@Autowired
@@ -27,6 +29,32 @@ public class OrganizationDao {
 		};
 
 		return (Organization)select.fire(sqlSessionFactory);
+	}
+
+    public Organization selectByName(String name) {
+        DatabaseSelect select = new DatabaseSelect() {
+            @Override
+            public Object processSelect(SqlSession session) {
+                OrganizationMapper mapper = session
+                        .getMapper(OrganizationMapper.class);
+                return mapper.selectByName(name);
+            }
+        };
+
+        return (Organization)select.fire(sqlSessionFactory);
+    }
+
+	public List<Organization> selectAll() {
+		DatabaseSelect select = new DatabaseSelect() {
+			@Override
+			public Object processSelect(SqlSession session) {
+				OrganizationMapper mapper = session
+						.getMapper(OrganizationMapper.class);
+				return mapper.selectAll();
+			}
+		};
+
+		return (List<Organization>)select.fire(sqlSessionFactory);
 	}
 
 	public void update(Organization organization) {

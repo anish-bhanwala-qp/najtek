@@ -35,6 +35,8 @@ public class UserCache {
     public List<UserRole> getUserRoles() {
         if (userRoles == null) {
             userRoles = userRoleDao.selectByUserId(user.getId());
+            logger.info("___________________________________________userRoles Size: \n" +
+                    userRoles.size());
         }
 
         return userRoles;

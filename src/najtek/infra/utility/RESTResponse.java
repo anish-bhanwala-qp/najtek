@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 
 import java.util.List;
 
@@ -70,6 +71,19 @@ public class RESTResponse {
         }
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .headers(alertMessageService.getErrorHeader(alertMessageKey, replaceValues))
+                .body(errors);
+    }
+
+    public ResponseEntity getValidationErrorResponse(String alertMessageKey,
+                                                     FieldError... fieldErrors) {
+        List<ValidationError> errors = controllerValidationHandler
+                .processValidationError(fieldErrors);
+        if (StringUtils.isEmpty(alertMessageKey)) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(errors);
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .headers(alertMessageService.getErrorHeader(alertMessageKey))
                 .body(errors);
     }
 }

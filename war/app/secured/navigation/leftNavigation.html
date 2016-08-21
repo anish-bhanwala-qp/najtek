@@ -1,0 +1,15 @@
+<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+    <div class="list-group" ng-repeat="navLink in leftNavCtrl.leftNavLinks">
+        <a ui-sref="{{navLink.url}}"
+           ng-class="leftNavCtrl.getCssClass(navLink)"
+           ng-click="leftNavCtrl.selectTab(navLink)"
+           ng-bind="navLink.title"
+           class="list-group-item"
+           ng-if="!navLink.readOnly"></a>
+        <a ng-class="leftNavCtrl.getCssClass(navLink)"
+           ng-click="leftNavCtrl.selectTab(navLink)"
+           ng-bind="navLink.title"
+           class="list-group-item"
+           ng-if="navLink.readOnly"></a>
+    </div>
+</div>

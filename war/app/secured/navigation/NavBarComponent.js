@@ -1,18 +1,30 @@
-function NavBarController($scope, AppConstant) {
+function NavBarController($scope, AppConstant, AuthenticationService) {
     var self = this;
 
     self.title = AppConstant.APP_TITLE;
 
-    //self.navLinks = [{title: 'Manage School', link: '#manageSchool'}];
-    self.selectedTab = self.navLinks[0].title;
+    self.navLinks = [];
+
+    var selectedTab;
 
     self.selectTab = function(navLink) {
-        scope.selectedTab = navLink.title;
-    }
+        selectedTab = navLink.title;
+    };
 
     self.getCssClass = function(navLink) {
-        return self.selectedTab == navLink.title ? 'active' : '';
+        if (!selectedTab) {
+            selectedTab = navLink.title;
+        }
+        return selectedTab == navLink.title ? 'active' : '';
+    };
+
+    function init() {
+        AuthenticationService.getAuthenticatedUser(function(authenticatedUser) {
+            angular.extend(self.navLinks, authenticatedUser.navLinks);
+        });
     }
+
+    init();
 }
 
 angular.module('NAJTek')

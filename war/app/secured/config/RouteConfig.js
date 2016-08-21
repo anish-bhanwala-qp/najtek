@@ -1,11 +1,11 @@
 angular.module('NAJTek').config(function($stateProvider, $urlRouterProvider, AppConstant) {
 
-  $urlRouterProvider.otherwise("/manageSchool");
+  $urlRouterProvider.otherwise("/organizations");
   //
   // Now set up the states
   $stateProvider
-    .state('manageSchool', {
-      url: '/manageSchool',
-      template:  '<nt-manage-school-component></nt-manage-school-component>'
+    .state('organizations', {
+      url: '/organizations',
+      template:  '<nt-organization-component></nt-organization-component>'
     });
 });

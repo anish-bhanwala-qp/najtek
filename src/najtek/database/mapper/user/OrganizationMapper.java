@@ -4,6 +4,8 @@ import najtek.domain.user.Organization;
 
 import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
 @Mapper
 public interface OrganizationMapper {
 	public static final String NAMESPACE = "najtek.database.mapper.user.OrganizationMapper";
@@ -13,6 +15,12 @@ public interface OrganizationMapper {
 
 	@Select("select * from organization where id = #{id}")
 	Organization selectById(long id);
+
+    @Select("select * from organization where name = #{name}")
+    Organization selectByName(String name);
+
+	@Select("select * from organization")
+    List<Organization> selectAll();
 
 	@Update("update organization set name = #{name}, "
 			+ "primary_user_id = #{primaryUserId}, default_database = "

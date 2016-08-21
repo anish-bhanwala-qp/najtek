@@ -21,13 +21,6 @@ public class HomeController extends BaseController {
 
     @RequestMapping(value = "/home", method = {RequestMethod.GET, RequestMethod.POST})
     public ModelAndView home() {
-        User user = getCurrentUser();
-        Gson gson = new Gson();
-
-        ModelAndView modelAndView = new ModelAndView("secured/home");
-
-        modelAndView.addObject("navigationLinks", gson.toJson(user.getNavigationLinks()));
-
-        return modelAndView;
+        return new ModelAndView("secured/home");
     }
 }

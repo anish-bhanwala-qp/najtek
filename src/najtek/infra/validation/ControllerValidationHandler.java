@@ -42,6 +42,15 @@ public class ControllerValidationHandler {
         return errors;
     }
 
+    public List<ValidationError> processValidationError(FieldError[] fieldErrors) {
+        List<ValidationError> errors = new ArrayList<>();
+        for (FieldError fieldError : fieldErrors) {
+            errors.add(processFieldError(fieldError));
+        }
+
+        return errors;
+    }
+
     private ValidationError processFieldError(FieldError error) {
         if (error != null) {
             String message = messageSourceUtil.getMessageByKey(error.getDefaultMessage());

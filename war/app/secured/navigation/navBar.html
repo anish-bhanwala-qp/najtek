@@ -14,7 +14,7 @@
         <div class="collapse navbar-collapse" id="top-navbar">
             <ul class="nav navbar-nav">
                 <li ng-class="getCssClass(navLink)" ng-repeat="navLink in navCtrl.navLinks">
-                    <a ui-sref="{{navLink.link}}" ng-click="selectTab(navLink)" ng-bind="navLink.title"></a>
+                    <a ui-sref="{{navLink.url}}" ng-click="selectTab(navLink)" ng-bind="navLink.title"></a>
                 </li>
             </ul>
 
