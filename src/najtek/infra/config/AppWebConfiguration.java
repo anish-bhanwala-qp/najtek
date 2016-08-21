@@ -57,17 +57,17 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter
      AlertMessageService.SUCCESS_HEADER);
      }*/
 
-    @Bean
+    /*@Bean
     public Filter corsFilter() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addExposedHeader(AlertMessageService.ERROR_HEADER);
         configuration.addExposedHeader(AlertMessageService.SUCCESS_HEADER);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("*//**", configuration);
 
         return new CorsFilter(source);
-    }
+    }*/
 
     @Bean
     public ResourceBundleMessageSource messageSource() {
@@ -91,10 +91,9 @@ public class AppWebConfiguration extends WebMvcConfigurerAdapter
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/login").setViewName(
-                ANGULARJS_PATH_PREFIX + "public/index.html");
-        registry.addViewController("/home").setViewName(
-                ANGULARJS_PATH_PREFIX + "secured/home.html");
+        registry.addViewController("/login").setViewName("public/authentication/login");
+        /*registry.addViewController("/home")
+                .setViewName("redirect:" + ANGULARJS_PATH_PREFIX + "secured/home.html");*/
     }
 
     private HandlerInterceptor localeChangeInterceptor() {

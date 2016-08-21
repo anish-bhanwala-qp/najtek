@@ -1,6 +1,6 @@
 angular.module('NAJTek')
-    .config(['$routeProvider', '$httpProvider', 'AppConstant',
-        function($routeProvider, $httpProvider, AppConstant) {
+    .config([ '$httpProvider', 'AppConstant',
+        function($httpProvider, AppConstant) {
            /* $routeProvider.when('/home', {
                     templateUrl : AppConstant.HTML_PATH_SECURED_PREFIX
                             + 'home.html'

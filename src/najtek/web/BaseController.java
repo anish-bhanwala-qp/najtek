@@ -1,8 +1,15 @@
 package najtek.web;
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import najtek.infra.user.User;
+import org.springframework.security.core.Authentication;
 
-@RequestMapping("/n")
+import java.security.Principal;
+
 public class BaseController {
-
+    protected User getUser(Principal principal) {
+        if (principal == null) {
+            return null;
+        }
+        return (User) ((Authentication) principal).getPrincipal();
+    }
 }

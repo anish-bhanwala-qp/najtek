@@ -18,7 +18,7 @@ function NavBarController($scope, AppConstant) {
 angular.module('NAJTek')
     .component('ntNavbarComponent', {
         templateUrl : function(AppConstant) {
-            return AppConstant.HTML_PATH_PUBLIC_PREFIX
+            return AppConstant.HTML_PATH_SECURED_PREFIX
                     + 'navigation/navBar.html'
         },
         controller : NavBarController,
