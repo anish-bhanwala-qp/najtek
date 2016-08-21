@@ -51,7 +51,7 @@ public class OAuth2Configuration extends AuthorizationServerConfigurerAdapter {
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.withClientDetails(customUserDetailsService);
+        //clients.withClientDetails(customUserDetailsService);
 /*
         clients.inMemory().withClient("android-" + applicationName)
                 .authorizedGrantTypes("password", "authorization_code", "refresh_token")

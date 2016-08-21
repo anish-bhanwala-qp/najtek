@@ -1,7 +1,9 @@
 package najtek.infra.user;
 
+import najtek.database.dao.user.OrganizationDao;
 import najtek.database.dao.user.UserDao;
 
+import najtek.database.dao.user.UserRoleDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Autowired
 	private UserDao userDao;
 
+	@Autowired
+    private OrganizationDao organizationDao;
+
+    @Autowired
+    private UserRoleDao userRoleDao;
+
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
@@ -30,6 +38,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 			throw new UsernameNotFoundException("username " + username
 					+ " not found");
 		}
+
+		user.initUserCache(userRoleDao, organizationDao);
 
 		return user;
 	}

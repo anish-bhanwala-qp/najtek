@@ -60,7 +60,7 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .loginProcessingUrl("/login")
                     .usernameParameter("username")
                     .passwordParameter("password")
-                    .successForwardUrl("/home")
+                    .successForwardUrl("/homeRedirect")
                     .permitAll()
                 .and()
                     .logout()

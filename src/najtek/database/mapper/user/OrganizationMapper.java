@@ -2,11 +2,9 @@ package najtek.database.mapper.user;
 
 import najtek.domain.user.Organization;
 
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
+@Mapper
 public interface OrganizationMapper {
 	public static final String NAMESPACE = "najtek.database.mapper.user.OrganizationMapper";
 	public static final String DEFAULT_DATABASE_HANDLER = "#{defaultDatabase "

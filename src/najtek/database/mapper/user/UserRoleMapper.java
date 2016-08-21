@@ -2,16 +2,16 @@ package najtek.database.mapper.user;
 
 import najtek.domain.user.UserRole;
 
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Options;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
+import java.util.List;
+
+@Mapper
 public interface UserRoleMapper {
 	public static final String NAMESPACE = "najtek.database.mapper.user.UserRoleMapper";	
 
-	@Select("select * from user_role where user_id = #{userId}")	
-	UserRole selectByUserId(long userId);
+	@Select("select * from user_role where user_id = #{userId}")
+    List<UserRole> selectByUserId(long userId);
 
 	@Delete("delete from user_role where id = #{id}")
 	void delete(long id);

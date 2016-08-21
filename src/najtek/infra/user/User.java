@@ -1,14 +1,20 @@
 package najtek.infra.user;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import javax.validation.constraints.NotNull;
 
+import najtek.database.dao.user.OrganizationDao;
+import najtek.database.dao.user.UserCache;
+import najtek.database.dao.user.UserDao;
+import najtek.database.dao.user.UserRoleDao;
 import najtek.domain.common.DomainObject;
 
+import najtek.domain.user.Organization;
+import najtek.domain.user.Role;
+import najtek.domain.user.UserRole;
+import najtek.infra.navigation.NavigationLink;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,6 +23,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class User implements UserDetails, DomainObject {
 
 	private static final long serialVersionUID = -2980558110010612251L;
+
+    private UserCache userCache;
 	
 	private long id;
 	
@@ -25,6 +33,8 @@ public class User implements UserDetails, DomainObject {
 	private String firstName;
 	private String middleName;
 	private String lastName;
+
+    private long organizationId;
 	
 	@JsonIgnore
 	@NotNull
@@ -119,4 +129,36 @@ public class User implements UserDetails, DomainObject {
 	public void setEmailAddress(String emailAddress) {
 		this.username = emailAddress;
 	}
+
+    public long getOrganizationId() {
+        return organizationId;
+    }
+
+    public void setOrganizationId(long organizationId) {
+        this.organizationId = organizationId;
+    }
+
+    public List<UserRole> getUserRoles() {
+	    return userCache.getUserRoles();
+    }
+
+    public void initUserCache(UserRoleDao userRoleDao,
+                                    OrganizationDao organizationDao) {
+        userCache = new UserCache(userRoleDao, organizationDao, this);
+    }
+
+    public Organization getOrganization() {
+        return userCache.getOrganization();
+    }
+
+    public List<NavigationLink> getNavigationLinks() {
+        List<NavigationLink> navigationLinks = new ArrayList<>();
+        for (UserRole userRole: getUserRoles()) {
+            if (userRole.getRole() == Role.ADMIN) {
+                navigationLinks.add(new NavigationLink("Admin", "/admin"));
+            }
+        }
+
+        return navigationLinks;
+    }
 }

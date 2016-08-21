@@ -1,15 +1,20 @@
 package najtek.web;
 
 import najtek.infra.user.User;
-import org.springframework.security.core.Authentication;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.security.Principal;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 public class BaseController {
-    protected User getUser(Principal principal) {
+    private Logger logger = LoggerFactory.getLogger(BaseController.class);
+    protected User getCurrentUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal == null) {
+            logger.info("Principal is null");
             return null;
         }
-        return (User) ((Authentication) principal).getPrincipal();
+        logger.info("Principal is NOT null");
+        return (User) principal;
     }
 }

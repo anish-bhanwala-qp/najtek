@@ -3,7 +3,7 @@ function NavBarController($scope, AppConstant) {
 
     self.title = AppConstant.APP_TITLE;
 
-    self.navLinks = [{title: 'Manage School', link: '#manageSchool'}];
+    //self.navLinks = [{title: 'Manage School', link: '#manageSchool'}];
     self.selectedTab = self.navLinks[0].title;
 
     self.selectTab = function(navLink) {

@@ -27,7 +27,7 @@
 <![endif]-->
 <div cg-busy="currentPromise"></div>
 
-<nt-navbar-component></nt-navbar-component>
+<nt-navbar-component navLinks="<c:out value="${navigationLinks}"/>"></nt-navbar-component>
 
 <div class="container">
     <div class="row row-offcanvas row-offcanvas-left">
