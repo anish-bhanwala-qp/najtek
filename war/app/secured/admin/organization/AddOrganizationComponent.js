@@ -1,14 +1,14 @@
-function AddOrganizationController(Organization) {
+function AddOrganizationController(Organization, ShowValidationErrorService) {
 	var self = this;
 
 	self.organization = new Organization();
 
-	self.submit = function() {
+	self.submit = function(addOrgForm) {
 		self.organization.$save(function(result) {
             console.log(result);
             self.modalInstance.close(result);
         }, function (errorResult) {
-            console.log(errorResult);
+            ShowValidationErrorService.process(errorResult, addOrgForm);
         });
 	};
 

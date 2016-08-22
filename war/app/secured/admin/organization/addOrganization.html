@@ -1,19 +1,16 @@
 <div class="modal-header">
     <h3 class="modal-title">Add Organization</h3>
 </div>
-<form ng-submit="addOrgCtrl.submit()" name="myForm" class="form-horizontal">
+<form ng-submit="addOrgCtrl.submit(addOrgForm)" name="addOrgForm" class="form-horizontal">
     <div class="modal-body" id="modal-body">
-        <div class="row">
-            <div class="form-group col-md-12">
-                <label class="col-md-2 control-lable" for="name">Name</label>
-                <div class="col-md-7">
-                    <input type="text" ng-model="addOrgCtrl.organization.name" id="name" class="form-control input-sm" required/>
-                    <div class="has-error" ng-show="myForm.$dirty">
-                        <span ng-show="myForm.uname.$error.required">This is a required field</span>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <nt-field-label label-for="orgName" field="addOrgForm.name" label="Name">
+            <input type="text"
+                   name="name"
+                   ng-model="addOrgCtrl.organization.name"
+                   id="orgName"
+                   class="form-control input-sm"
+                   required/>
+        </nt-field-label>
     </div>
 
     <div class="modal-footer">

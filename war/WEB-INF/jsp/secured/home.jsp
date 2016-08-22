@@ -64,6 +64,9 @@
 <script src="/n/app/public/config/HttpInterceptorConfig.js"></script>
 <script src="/n/app/secured/config/RouteConfig.js"></script>
 
+<script src="/n/app/public/tags/field-label/FieldLabelDirective.js"></script>
+<script src="/n/app/public/util/ShowValidationErrorService.js"></script>
+
 <script src="/n/app/secured/school/SchoolResource.js"></script>
 
 <script src="/n/app/secured/admin/manage-school/ManageSchoolComponent.js"></script>

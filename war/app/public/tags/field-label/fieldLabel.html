@@ -1,0 +1,27 @@
+<div ng-switch="orientation">
+    <div class="form-group" ng-class="{'has-error': (field.$invalid && field.$dirty)}" ng-switch-when="vertical">
+        <div ng-switch="fieldType">
+            <div ng-switch-when="checkbox" class="checkbox">
+                <label>
+                    <span ng-transclude></span>
+                    <span ng-bind="label"></span>
+                </label>
+            </div>
+
+            <div ng-switch-default>
+                <label for="{{labelFor}}" ng-bind="label"></label>
+                <div ng-transclude></div>
+            </div>
+            <span class="text-danger" ng-show="field.$invalid && field.errorMessage" ng-bind="field.errorMessage"></span>
+        </div>
+    </div>
+    <div class="form-group" ng-class="{'has-error': (field.$invalid && field.$dirty)}" ng-switch-default>
+        <label for="{{labelFor}}" class="col-sm-3 col-md-3 col-lg-2 control-label" ng-bind="label">
+        </label>
+        <div ng-class="{'col-sm-8 col-md-8 col-lg-9': !fullWidth, 'col-sm-9 col-md-9 col-lg-10': fullWidth}">
+            <div ng-transclude></div>
+            <span class="text-danger" ng-show="field.$invalid && field.errorMessage" ng-bind="field.errorMessage"></span>
+        </div>
+
+    </div>
+</div>
