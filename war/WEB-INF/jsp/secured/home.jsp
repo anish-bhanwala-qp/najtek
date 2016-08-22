@@ -65,14 +65,19 @@
 <script src="/n/app/secured/config/RouteConfig.js"></script>
 
 <script src="/n/app/public/tags/field-label/FieldLabelDirective.js"></script>
+<script src="/n/app/public/tags/panel/PanelDirective.js"></script>
+
 <script src="/n/app/public/util/ShowValidationErrorService.js"></script>
 
 <script src="/n/app/secured/school/SchoolResource.js"></script>
 
-<script src="/n/app/secured/admin/manage-school/ManageSchoolComponent.js"></script>
-<script src="/n/app/secured/admin/organization/OrganizationComponent.js"></script>
+<script src="/n/app/secured/admin/organization/OrganizationsComponent.js"></script>
 <script src="/n/app/secured/admin/organization/OrganizationResource.js"></script>
 <script src="/n/app/secured/admin/organization/AddOrganizationComponent.js"></script>
+
+<script src="/n/app/secured/admin/school/SchoolsComponent.js"></script>
+<script src="/n/app/secured/admin/school/SchoolResource.js"></script>
+<script src="/n/app/secured/admin/school/AddSchoolComponent.js"></script>
 
 <script src="/n/app/secured/navigation/NavBarComponent.js"></script>
 <script src="/n/app/secured/navigation/LeftNavigationService.js"></script>

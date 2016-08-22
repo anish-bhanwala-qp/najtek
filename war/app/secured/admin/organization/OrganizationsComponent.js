@@ -24,7 +24,7 @@ function OrganizationController(Organization, $scope, LeftNavigationService, $ui
 }
 
 angular.module('NAJTek')
-    .component('ntOrganizationComponent', {
+    .component('ntOrganizationsComponent', {
         templateUrl : function(AppConstant) {
             return AppConstant.HTML_PATH_SECURED_PREFIX
                     + 'admin/organization/organizations.html'

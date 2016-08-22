@@ -5,6 +5,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import najtek.database.mapper.school.SchoolMapper;
 import najtek.database.mapper.user.OrganizationMapper;
 import najtek.database.mapper.user.UserMapper;
 import najtek.database.mapper.user.UserRoleMapper;
@@ -22,7 +23,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan({ "najtek.infra.user", "najtek.database.common" , "najtek.database.dao"})
+@ComponentScan({ "najtek.infra.user",
+		"najtek.database.common" ,
+        "najtek.database.dao"})
 @MapperScan("{najtek.database.mapper}")
 public class AppDatabaseConfiguration {
 	private final Logger logger = LoggerFactory.getLogger(AppDatabaseConfiguration.class);
@@ -70,5 +73,6 @@ public class AppDatabaseConfiguration {
 		configuration.addMapper(UserMapper.class);
 		configuration.addMapper(UserRoleMapper.class);
 		configuration.addMapper(OrganizationMapper.class);
+        configuration.addMapper(SchoolMapper.class);
 	}
 }

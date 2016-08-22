@@ -1,0 +1,20 @@
+<div class="modal-header">
+    <h3 class="modal-title">Add School</h3>
+</div>
+<form ng-submit="addSchoolCtrl.submit(addSchoolForm)" name="addSchoolForm" class="form-horizontal" novalidate>
+    <div class="modal-body" id="modal-body">
+        <nt-field-label label-for="schoolName" field="addSchoolForm.name" label="Name">
+            <input type="text"
+                   name="name"
+                   ng-model="addSchoolCtrl.school.name"
+                   id="schoolName"
+                   class="form-control input-sm"
+                   required/>
+        </nt-field-label>
+    </div>
+
+    <div class="modal-footer">
+        <input type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid" value="Add">
+        <button class="btn btn-default" type="button" ng-click="addSchoolCtrl.cancel()">Cancel</button>
+    </div>
+</form>
