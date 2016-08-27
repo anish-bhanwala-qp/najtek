@@ -3,6 +3,7 @@ package najtek.infra.config;
 import najtek.infra.user.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -16,6 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * Created by anish on 14/8/16.
  */
 @Configuration
+@ComponentScan({"najtek.domain"})
 public class AuthenticationManagerConfiguration extends GlobalAuthenticationConfigurerAdapter {
 
     @Autowired

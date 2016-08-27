@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -52,7 +53,7 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic()
                     .and()
                 /*.csrf().disable()*/
-                .authorizeRequests()
+                    .authorizeRequests()
                     .antMatchers("/api/secured/**", "/app/secured/**").fullyAuthenticated()
                     .antMatchers("/api/public/**", "/app/public/**", "/resources/**").permitAll()
                     .anyRequest().fullyAuthenticated()
@@ -66,6 +67,7 @@ public class AppSecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .and()
                     .logout()
+                    .logoutUrl("/n/logout")
                     .permitAll()
                 .and()
                     .addFilterAfter(new CsrfHeaderFilter(), CsrfFilter.class)

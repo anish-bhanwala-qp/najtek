@@ -31,7 +31,7 @@ import javax.servlet.Filter;
 
 @EnableWebMvc
 @Configuration
-@ComponentScan({ "najtek.web", "najtek.infra.user", "najtek.infra.validation" , "najtek.infra.utility"})
+@ComponentScan({ "najtek.web", "najtek.infra"})
 public class AppWebConfiguration extends WebMvcConfigurerAdapter
         implements ApplicationContextAware {
 

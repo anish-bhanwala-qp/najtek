@@ -5,17 +5,12 @@ import java.util.*;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import najtek.database.dao.user.OrganizationDao;
-import najtek.database.dao.user.UserCache;
-import najtek.database.dao.user.UserDao;
-import najtek.database.dao.user.UserRoleDao;
 import najtek.domain.common.DomainObject;
 
 import najtek.domain.user.Organization;
 import najtek.domain.user.Role;
 import najtek.domain.user.UserRole;
 import najtek.infra.navigation.NavigationLink;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -38,9 +33,6 @@ public class User implements UserDetails, DomainObject {
     @JsonIgnore
     @NotNull
     private String password;
-
-    /*All Non-serializable properties here*/
-    private transient UserCache userCache;
 
     public User() {}
 
@@ -137,26 +129,17 @@ public class User implements UserDetails, DomainObject {
     }
 
     public List<UserRole> getUserRoles() {
-        return userCache.getUserRoles();
-    }
-
-    public void initUserCache(UserRoleDao userRoleDao,
-                              OrganizationDao organizationDao) {
-        userCache = new UserCache(userRoleDao, organizationDao, this);
-    }
-
-    public Organization getOrganization() {
-        return userCache.getOrganization();
+        return null;
     }
 
     @JsonProperty("navLinks")
     public List<NavigationLink> setupNavigationLinks() {
         List<NavigationLink> navigationLinks = new ArrayList<>();
-        for (UserRole userRole: getUserRoles()) {
+        /*for (UserRole userRole: getUserRoles()) {
             if (userRole.getRole() == Role.ADMIN) {
                 navigationLinks.add(new NavigationLink("Admin", "/admin"));
             }
-        }
+        }*/
         return navigationLinks;
     }
 }

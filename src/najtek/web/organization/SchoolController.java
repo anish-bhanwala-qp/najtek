@@ -1,16 +1,14 @@
 package najtek.web.organization;
 
-import najtek.database.common.AppDatabase;
-import najtek.database.dao.school.SchoolDao;
-import najtek.database.dao.user.OrganizationDao;
 import najtek.domain.school.School;
-import najtek.domain.user.Organization;
+import najtek.domain.school.SchoolService;
 import najtek.infra.utility.RESTResponse;
 import najtek.web.APISecuredController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -21,12 +19,10 @@ import java.util.List;
  */
 @RestController
 public class SchoolController extends APISecuredController {
+    final private Logger logger = LoggerFactory.getLogger(SchoolController.class);         
 
     @Autowired
-    private SchoolDao schoolDao;
-
-    @Autowired
-    private OrganizationDao organizationDao;
+    private SchoolService schoolService;
 
     @Autowired
     private RESTResponse restResponse;
@@ -34,18 +30,17 @@ public class SchoolController extends APISecuredController {
     @RequestMapping(value = "/organization/{organizationId}/school/{id}", method = RequestMethod.GET)
     public ResponseEntity getSchoolForOrganization(@PathVariable("organizationId") long organizationId,
                                                    @PathVariable("id") long id) {
-        System.out.println("Fetching organization with id " + id);
-        Organization organization = organizationDao.selectById(organizationId);
-        School school = schoolDao.selectById(id, organization.getId());
+        logger.info("Fetching school with id " + id);
+        School school = schoolService.getSchoolById(organizationId, id);
 
         return restResponse.getSuccessResponse(school);
     }
 
     @RequestMapping(value = "/organization/{organizationId}/school", method = RequestMethod.GET)
-    public ResponseEntity getSchoolsForOrganizations(@PathVariable("organizationId") long organizationId) {
-        System.out.println("Fetching organization All");
-        Organization organization = organizationDao.selectById(organizationId);
-        List<School> schools = schoolDao.selectByOrganizationId(organization.getId());
+    public ResponseEntity getSchoolListForOrganization(
+            @PathVariable("organizationId") long organizationId) {
+        logger.info("Fetching school list for organization");
+        List<School> schools = schoolService.getSchoolListByOrganizationId(organizationId);
 
         return restResponse.getSuccessResponse(schools);
     }
@@ -59,10 +54,7 @@ public class SchoolController extends APISecuredController {
                     "generic.validation.errors");
         }
 
-        Organization organization = organizationDao.selectById(school.getOrganizationId());
-        school.setOrganizationId(organization.getId());
-
-        schoolDao.insert(school);
+        schoolService.add(school);
 
         return restResponse.getSuccessResponse(school, "school.add.success");
     }
