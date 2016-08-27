@@ -51,6 +51,12 @@ public class SchoolService {
     public void add(School school) {
         assertOrganizationNotNull(school.getOrganizationId());
         schoolDao.insert(school);
+
+        addSchoolToCache(school);
+    }
+
+    private void addSchoolToCache(School school) {
+        getSchoolListFromCache(school.getOrganizationId()).add(school);
     }
 
     private void assertOrganizationNotNull(long organizationId) {

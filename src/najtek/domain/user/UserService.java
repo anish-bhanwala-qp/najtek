@@ -37,20 +37,22 @@ public class UserService implements HttpSessionListener {
     private User user;
     private List<UserRole> userRoleList;
 
-    private void addToCache(User user) {
+    public void addToCache(User user) {
         this.user = user;
+        this.user.setUserRoleList(getUserRoleList());
     }
 
-    public User getUserByEmail(String email) {
-        if (user != null) {
+    public User getUser() {
+        /*if (user != null) {
             logger.info("User Service. Getting user by email");
             user = userDao.selectByUsername(email);
-        }
+        }*/
         return user;
     }
 
     public List<UserRole> getUserRoleList() {
         if (userRoleList == null) {
+            logger.info("Fetching UserRoleList from database");
             userRoleList = userRoleDao.selectByUserId(user.getId());
         }
         return userRoleList;

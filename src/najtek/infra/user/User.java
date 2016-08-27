@@ -36,6 +36,8 @@ public class User implements UserDetails, DomainObject {
 
     public User() {}
 
+    private transient List<UserRole> userRoleList;
+
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
@@ -128,18 +130,22 @@ public class User implements UserDetails, DomainObject {
         this.organizationId = organizationId;
     }
 
+    public void setUserRoleList(List<UserRole> userRoleList) {
+        this.userRoleList = userRoleList;
+    }
+
     public List<UserRole> getUserRoles() {
-        return null;
+        return userRoleList;
     }
 
     @JsonProperty("navLinks")
-    public List<NavigationLink> setupNavigationLinks() {
+    public List<NavigationLink> getNavigationLinks() {
         List<NavigationLink> navigationLinks = new ArrayList<>();
-        /*for (UserRole userRole: getUserRoles()) {
+        for (UserRole userRole: getUserRoles()) {
             if (userRole.getRole() == Role.ADMIN) {
                 navigationLinks.add(new NavigationLink("Admin", "/admin"));
             }
-        }*/
+        }
         return navigationLinks;
     }
 }
