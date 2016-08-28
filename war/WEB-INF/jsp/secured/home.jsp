@@ -39,6 +39,8 @@
                 <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
             </p>
 
+            <div ncy-breadcrumb></div>
+
             <div ui-view></div>
         </div><!--/.col-xs-12.col-sm-9-->
 
@@ -55,6 +57,7 @@
 <script src="/n/resources/js/vendor/angular-ui-notification.min.js"></script>
 <script src="/n/resources/js/vendor/angular-busy.min.js"></script>
 <script src="/n/resources/js/vendor/ui-bootstrap-tpls-2.1.1.min.js"></script>
+<script src="/n/resources/js/vendor/angular-breadcrumb.min.js"></script>
 
 <script src="/n/app/public/App.js"></script>
 <script src="/n/app/public/login/LoginController.js"></script>
@@ -63,6 +66,7 @@
 
 <script src="/n/app/public/config/HttpInterceptorConfig.js"></script>
 <script src="/n/app/secured/config/RouteConfig.js"></script>
+<script src="/n/app/secured/config/Run.js"></script>
 
 <script src="/n/app/public/tags/field-label/FieldLabelDirective.js"></script>
 <script src="/n/app/public/tags/panel/PanelDirective.js"></script>

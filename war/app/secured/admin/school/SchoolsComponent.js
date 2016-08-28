@@ -1,8 +1,5 @@
-function SchoolController(School, Organization, $stateParams, LeftNavigationService, $uibModal) {
+function SchoolController(School, Organization, $stateParams, $uibModal) {
 	var self = this;
-
-	var leftNavLinks = [{title: 'Schools', readOnly: true}];
-	LeftNavigationService.resetLeftNav(leftNavLinks);
 
 	self.organization = Organization.get({id: $stateParams.organizationId});
 

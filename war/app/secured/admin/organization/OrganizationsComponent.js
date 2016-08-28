@@ -1,15 +1,11 @@
-function OrganizationController(Organization, $scope, LeftNavigationService, $uibModal) {
+function OrganizationController(Organization, $scope, $uibModal) {
 	var self = this;
-	var leftNavLinks = [{title: 'Organizations', readOnly: true}];
-
-	LeftNavigationService.resetLeftNav(leftNavLinks);
 
     self.organizations = Organization.query();
 
     self.showAdd = function() {
         var modalInstance = $uibModal.open({
               animation: true,
-              //template: '<nt-add-organization-component></nt-add-organization-component>',
               component: 'ntAddOrganizationComponent'
             });
 
