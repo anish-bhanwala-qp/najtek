@@ -2,6 +2,8 @@ package najtek.database.common;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -10,10 +12,12 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public abstract class DatabaseInsert {
+    private final static Logger logger = LoggerFactory.getLogger(DatabaseInsert.class);
 
     public void fire(SqlSessionFactory sqlSessionFactory) {
         SqlSession session = sqlSessionFactory.openSession();
         try {
+            logger.info("************EXECUTING SQL INSERT COMMAND**************");
             process(session);
             session.commit();
         } finally {

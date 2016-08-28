@@ -17,7 +17,6 @@ public abstract class DatabaseSelect {
         SqlSession session = sqlSessionFactory.openSession();
         try {
             logger.info("************EXECUTING SQL COMMAND**************");
-            System.out.println("************EXECUTING SQL COMMAND**************");
             return processSelect(session);
         } finally {
             session.close();

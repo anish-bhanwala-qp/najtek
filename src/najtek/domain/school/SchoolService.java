@@ -2,6 +2,8 @@ package najtek.domain.school;
 
 import najtek.database.dao.school.SchoolDao;
 import najtek.domain.user.OrganizationService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -18,6 +20,7 @@ import java.util.Map;
 @Service
 @Scope(value = "session", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class SchoolService {
+    private final static Logger logger = LoggerFactory.getLogger(SchoolService.class);
     @Autowired
     private SchoolDao schoolDao;
 
@@ -30,13 +33,11 @@ public class SchoolService {
         assertOrganizationNotNull(organizationId);
 
         if (isSchoolListInCache(organizationId)) {
+            logger.info("************Get school list cache**************");
             return getSchoolListFromCache(organizationId);
         }
 
-        List<School> schoolList = getSchoolListFromDatabase(organizationId);
-        addSchoolListToCache(organizationId, schoolList);
-
-        return schoolList;
+        return populateSchoolListFromDatabaseToCache(organizationId);
     }
 
     public School getSchoolById(long organizationId, long id) {
@@ -71,7 +72,18 @@ public class SchoolService {
     }
 
     private List<School> getSchoolListFromCache(long organizationId) {
-        return getOrganizationSchoolCache().get(organizationId);
+        List<School> schoolList = getOrganizationSchoolCache().get(organizationId);
+        if (schoolList == null) {
+            schoolList = populateSchoolListFromDatabaseToCache(organizationId);
+        }
+
+        return schoolList;
+    }
+
+    private List<School> populateSchoolListFromDatabaseToCache(long organizationId) {
+        List<School> schoolList = getSchoolListFromDatabase(organizationId);
+        addSchoolListToCache(organizationId, schoolList);
+        return schoolList;
     }
 
     private boolean isSchoolListInCache(long organizationId) {
@@ -83,6 +95,7 @@ public class SchoolService {
     }
 
     private void addSchoolListToCache(long organizationId, List<School> schoolList) {
+        logger.info("************Populated school list cache**************");
         getOrganizationSchoolCache().put(organizationId, schoolList);
     }
 

@@ -56,6 +56,9 @@ public class SchoolController extends APISecuredController {
 
         schoolService.add(school);
 
+        logger.info("************School list cache Size: " +
+                schoolService.getSchoolListByOrganizationId(school.getOrganizationId()).size());
+
         return restResponse.getSuccessResponse(school, "school.add.success");
     }
 }
