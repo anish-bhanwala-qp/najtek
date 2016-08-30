@@ -25,7 +25,7 @@ angular.module('NAJTek')
                 url: '/:schoolId',
                 template: '<nt-school-setting-component></nt-school-setting-component>',
                 ncyBreadcrumb: {
-                    label: 'School Setting'
+                    label: 'Setting'
                 },
                 data: {
                     leftNavLinks: [
@@ -37,7 +37,7 @@ angular.module('NAJTek')
                 url: '/:schoolId/staffMember',
                     template: '<nt-staff-members-component></nt-staff-members-component>',
                     ncyBreadcrumb: {
-                    label: 'School Staff Members'
+                    label: 'Staff Members'
                 },
                 data: {
                     leftNavLinks: [

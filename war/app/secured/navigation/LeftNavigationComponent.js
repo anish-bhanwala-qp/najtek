@@ -14,11 +14,17 @@ function LeftNavigationController(LeftNavigationService) {
     setFirstTabAsActive();
 
     self.selectTab = function(navLink) {
+        if (navLink.readOnly) {
+            return false;
+        }
         selectedTab = navLink.title;
     };
 
     self.getCssClass = function(navLink) {
-        return selectedTab == navLink.title ? 'active' : '';
+        return {
+            active: selectedTab == navLink.title,
+            disabled: navLink.readOnly
+        };
     };
 
     LeftNavigationService.onLeftNavChange(function(leftNavLinks) {
