@@ -83,6 +83,12 @@
 <script src="/n/app/secured/admin/school/SchoolResource.js"></script>
 <script src="/n/app/secured/admin/school/AddSchoolComponent.js"></script>
 
+<script src="/n/app/secured/admin/school/setting/SchoolSettingComponent.js"></script>
+
+<script src="/n/app/secured/admin/school/staff/AddStaffMemberComponent.js"></script>
+<script src="/n/app/secured/admin/school/staff/StaffMembersComponent.js"></script>
+<script src="/n/app/secured/admin/school/staff/StaffMemberResource.js"></script>
+
 <script src="/n/app/secured/navigation/NavBarComponent.js"></script>
 <script src="/n/app/secured/navigation/LeftNavigationService.js"></script>
 <script src="/n/app/secured/navigation/LeftNavigationComponent.js"></script>

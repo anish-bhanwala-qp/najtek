@@ -1,0 +1,47 @@
+<div class="modal-header">
+    <h3 class="modal-title">Add Staff Member</h3>
+</div>
+<form ng-submit="addStaffMemberCtrl.submit(addStaffMemberForm)" name="addStaffMemberForm" class="form-horizontal" novalidate>
+    <div class="modal-body" id="modal-body">
+        <nt-field-label label-for="emailAddress" field="addStaffMemberForm.emailAddress" label="Email Address">
+            <input type="text"
+                   name="emailAddress"
+                   ng-model="addStaffMemberCtrl.school.emailAddress"
+                   id="emailAddress"
+                   class="form-control input-sm"
+                   required/>
+        </nt-field-label>
+
+        <nt-field-label label-for="firstName" field="addStaffMemberForm.firstName" label="Name">
+            <input type="text"
+                   name="firstName"
+                   ng-model="addStaffMemberCtrl.school.firstName"
+                   id="firstName"
+                   class="form-control input-sm"
+                   required/>
+        </nt-field-label>
+
+        <nt-field-label label-for="middleName" field="addStaffMemberForm.middleName" label="Name">
+            <input type="text"
+                   name="middleName"
+                   ng-model="addStaffMemberCtrl.school.middleName"
+                   id="middleName"
+                   class="form-control input-sm"
+                   required/>
+        </nt-field-label>
+
+        <nt-field-label label-for="lastName" field="addStaffMemberForm.lastName" label="Name">
+            <input type="text"
+                   name="lastName"
+                   ng-model="addStaffMemberCtrl.school.lastName"
+                   id="lastName"
+                   class="form-control input-sm"
+                   required/>
+        </nt-field-label>
+    </div>
+
+    <div class="modal-footer">
+        <input type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid" value="Add">
+        <button class="btn btn-default" type="button" ng-click="addStaffMemberCtrl.cancel()">Cancel</button>
+    </div>
+</form>

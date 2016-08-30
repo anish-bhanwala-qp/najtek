@@ -7,7 +7,6 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import najtek.domain.common.DomainObject;
 
-import najtek.domain.user.Organization;
 import najtek.domain.user.Role;
 import najtek.domain.user.UserRole;
 import najtek.infra.navigation.NavigationLink;

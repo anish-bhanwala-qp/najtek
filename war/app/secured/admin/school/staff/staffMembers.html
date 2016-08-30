@@ -1,0 +1,27 @@
+<div>
+    <div align="right">
+        <button type="button" class="btn btn-primary" ng-click="staffMembersCtrl.showAdd()">
+            Add Staff Member
+        </button>
+    </div>
+
+    <nt-panel header="Staff Members" content-table="true">
+        <table class="table">
+            <thead>
+            <tr>
+                <th width="5%">#</th>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="schoolStaffMember in staffMembersCtrl.staffMembers">
+                <td ng-bind="$index + 1"></td>
+                <td ng-bind="schoolStaffMember.fullName">
+                    <!--<a ui-sref="organizations.schools({organizationId: organization.id})"
+                       ng-bind="schoolStaffMember.name"></a>-->
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </nt-panel>
+</div>

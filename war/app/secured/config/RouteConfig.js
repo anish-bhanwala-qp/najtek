@@ -21,5 +21,29 @@ angular.module('NAJTek')
                 data: {
                     leftNavLinks: [{title: 'Schools', readOnly: true}]
                 }
+            }).state('organizations.schools.schoolSetting', {
+                url: '/:schoolId',
+                template: '<nt-school-setting-component></nt-school-setting-component>',
+                ncyBreadcrumb: {
+                    label: 'School Setting'
+                },
+                data: {
+                    leftNavLinks: [
+                            {title: 'Staff', readOnly: true},
+                            {title: 'Staff', readOnly: true}
+                        ]
+                }
+            }).state('organizations.schools.staffMember', {
+                url: '/:schoolId/staffMember',
+                    template: '<nt-staff-members-component></nt-staff-members-component>',
+                    ncyBreadcrumb: {
+                    label: 'School Staff Members'
+                },
+                data: {
+                    leftNavLinks: [
+                        {title: 'Staff', url: true},
+                        {title: 'Staff', readOnly: true}
+                    ]
+                }
             });
 });

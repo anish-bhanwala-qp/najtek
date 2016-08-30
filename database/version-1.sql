@@ -40,3 +40,19 @@ CREATE TABLE school (
 
 	INDEX (organization_id)
 ) CHARACTER SET=utf8;
+
+CREATE TABLE school_staff_member (
+	id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	user_id INT(11) NOT NULL,
+	school_id VARCHAR(64) NOT NULL,
+
+	CONSTRAINT user_id_school_id_uc UNIQUE(user_id, school_id)
+) CHARACTER SET=utf8;
+
+CREATE TABLE school_staff_member_role (
+	id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	user_id INT(11) NOT NULL,
+	role VARCHAR(64) NOT NULL,
+
+	CONSTRAINT school_role_user_id_uc UNIQUE(user_id, role)
+) CHARACTER SET=utf8;

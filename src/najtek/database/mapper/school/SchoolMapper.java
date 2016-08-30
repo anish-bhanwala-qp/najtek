@@ -10,12 +10,16 @@ import java.util.List;
  */
 @Mapper
 public interface SchoolMapper {
-    public static final String NAMESPACE = "najtek.database.mapper.school.SchoolMapper";
+    String NAMESPACE = "najtek.database.mapper.school.SchoolMapper";
+    String SELECT_COLUMNS = "id, name, primary_user_id as primaryUserId, " +
+            "organization_id as organizationId";
 
-    @Select("select * from school where id = #{id} and organization_id = #{organizationId}")
+    @Select("select " + SELECT_COLUMNS + " from school " +
+            "where id = #{id} and organization_id = #{organizationId}")
     School selectById(long id, long organizationId);
 
-    @Select("select * from school where organization_id = #{organizationId}")
+    @Select("select " + SELECT_COLUMNS + " from school " +
+            "where organization_id = #{organizationId}")
     List<School> selectByOrganizationId(long organizationId);
 
     /*@Select("select * from organization")

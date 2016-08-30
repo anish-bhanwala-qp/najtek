@@ -6,6 +6,8 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import najtek.database.mapper.school.SchoolMapper;
+import najtek.database.mapper.school.staffmember.SchoolStaffMemberMapper;
+import najtek.database.mapper.school.staffmember.SchoolStaffMemberRoleMapper;
 import najtek.database.mapper.user.OrganizationMapper;
 import najtek.database.mapper.user.UserMapper;
 import najtek.database.mapper.user.UserRoleMapper;
@@ -74,5 +76,7 @@ public class AppDatabaseConfiguration {
 		configuration.addMapper(UserRoleMapper.class);
 		configuration.addMapper(OrganizationMapper.class);
         configuration.addMapper(SchoolMapper.class);
+		configuration.addMapper(SchoolStaffMemberMapper.class);
+		configuration.addMapper(SchoolStaffMemberRoleMapper.class);
 	}
 }

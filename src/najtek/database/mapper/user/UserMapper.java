@@ -6,7 +6,8 @@ import najtek.infra.user.User;
 
 @Mapper
 public interface UserMapper {
-	public static final String NAMESPACE = "najtek.database.mapper.user.UserMapper";
+	String NAMESPACE = "najtek.database.mapper.user.UserMapper";
+	String TABLE_NAME = "user";
 
 	@Select("select * from user where id = #{id}")
 	User selectById(long id);

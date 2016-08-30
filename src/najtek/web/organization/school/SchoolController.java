@@ -1,4 +1,4 @@
-package najtek.web.organization;
+package najtek.web.organization.school;
 
 import najtek.domain.school.School;
 import najtek.domain.school.SchoolService;
