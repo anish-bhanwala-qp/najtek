@@ -89,6 +89,8 @@
 <script src="/n/app/secured/admin/school/staff/StaffMembersComponent.js"></script>
 <script src="/n/app/secured/admin/school/staff/StaffMemberResource.js"></script>
 
+<script src="/n/app/secured/admin/user/UserSearchResource.js"></script>
+
 <script src="/n/app/secured/navigation/NavBarComponent.js"></script>
 <script src="/n/app/secured/navigation/LeftNavigationService.js"></script>
 <script src="/n/app/secured/navigation/LeftNavigationComponent.js"></script>

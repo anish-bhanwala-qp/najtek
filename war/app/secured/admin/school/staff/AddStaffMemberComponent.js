@@ -1,8 +1,11 @@
-function AddStaffMemberController($scope, School, ShowValidationErrorService) {
+function AddStaffMemberController($scope, StaffMember, UserSearch, ShowValidationErrorService) {
 	var self = this;
 
 	self.staffMember = new StaffMember();
-	self.staffMember.organizationId = self.resolve.organization.id;
+	self.staffMember.schoolId = self.resolve.school.id;
+	self.staffMember.organizationId = self.resolve.school.organizationId;
+
+	self.schoolName = self.resolve.school.name;
 
 	self.submit = function(addStaffMemberForm) {
 		self.staffMember.$save(function(result) {
@@ -21,13 +24,20 @@ function AddStaffMemberController($scope, School, ShowValidationErrorService) {
     self.cancel = function () {
         self.modalInstance.dismiss('cancel');
     };
+
+    self.searchUsers = function(username) {
+        return UserSearch.query({username: username})
+                .$promise.then(function(response) {
+                    return response;
+                });
+    };
 }
 
 angular.module('NAJTek')
     .component('ntAddStaffMemberComponent', {
         templateUrl : function(AppConstant) {
             return AppConstant.HTML_PATH_SECURED_PREFIX
-                    + 'admin/school/addStaffMember.html'
+                    + 'admin/school/staff/addStaffMember.html'
         },
         controller : AddStaffMemberController,
         controllerAs : 'addStaffMemberCtrl',

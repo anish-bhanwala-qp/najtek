@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">Add Staff Member</h3>
+    <h3 class="modal-title">Add Staff Member <small ng-bind="addStaffMemberCtrl.schoolName"></small></h3>
 </div>
 <form ng-submit="addStaffMemberCtrl.submit(addStaffMemberForm)" name="addStaffMemberForm" class="form-horizontal" novalidate>
     <div class="modal-body" id="modal-body">
@@ -9,10 +9,13 @@
                    ng-model="addStaffMemberCtrl.school.emailAddress"
                    id="emailAddress"
                    class="form-control input-sm"
+                   uib-typeahead="user.username for user in addStaffMemberCtrl.searchUsers($viewValue)"
+                   typeahead-min-length="3"
+                   typeahead-wait-ms="200"
                    required/>
         </nt-field-label>
 
-        <nt-field-label label-for="firstName" field="addStaffMemberForm.firstName" label="Name">
+        <nt-field-label label-for="firstName" field="addStaffMemberForm.firstName" label="First Name">
             <input type="text"
                    name="firstName"
                    ng-model="addStaffMemberCtrl.school.firstName"
@@ -21,7 +24,7 @@
                    required/>
         </nt-field-label>
 
-        <nt-field-label label-for="middleName" field="addStaffMemberForm.middleName" label="Name">
+        <nt-field-label label-for="middleName" field="addStaffMemberForm.middleName" label="Middle Name">
             <input type="text"
                    name="middleName"
                    ng-model="addStaffMemberCtrl.school.middleName"
@@ -30,7 +33,7 @@
                    required/>
         </nt-field-label>
 
-        <nt-field-label label-for="lastName" field="addStaffMemberForm.lastName" label="Name">
+        <nt-field-label label-for="lastName" field="addStaffMemberForm.lastName" label="Last Name">
             <input type="text"
                    name="lastName"
                    ng-model="addStaffMemberCtrl.school.lastName"

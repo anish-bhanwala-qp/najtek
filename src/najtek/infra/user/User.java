@@ -1,5 +1,6 @@
 package najtek.infra.user;
 
+import java.sql.Timestamp;
 import java.util.*;
 
 import javax.validation.constraints.NotNull;
@@ -26,8 +27,8 @@ public class User implements UserDetails, DomainObject {
     private String firstName;
     private String middleName;
     private String lastName;
-
     private long organizationId;
+    private Timestamp creationTimestamp;
 
     @JsonIgnore
     @NotNull
@@ -36,7 +37,6 @@ public class User implements UserDetails, DomainObject {
     public User() {}
 
     private transient List<UserRole> userRoleList;
-
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
@@ -129,6 +129,14 @@ public class User implements UserDetails, DomainObject {
         this.organizationId = organizationId;
     }
 
+    public Timestamp getCreationTimestamp() {
+        return creationTimestamp;
+    }
+
+    public void setCreationTimestamp(Timestamp creationTimestamp) {
+        this.creationTimestamp = creationTimestamp;
+    }
+
     public void setUserRoleList(List<UserRole> userRoleList) {
         this.userRoleList = userRoleList;
     }
@@ -140,9 +148,11 @@ public class User implements UserDetails, DomainObject {
     @JsonProperty("navLinks")
     public List<NavigationLink> getNavigationLinks() {
         List<NavigationLink> navigationLinks = new ArrayList<>();
-        for (UserRole userRole: getUserRoles()) {
-            if (userRole.getRole() == Role.ADMIN) {
-                navigationLinks.add(new NavigationLink("Admin", "/admin"));
+        if (getUserRoles() != null) {
+            for (UserRole userRole : getUserRoles()) {
+                if (userRole.getRole() == Role.ADMIN) {
+                    navigationLinks.add(new NavigationLink("Admin", "/admin"));
+                }
             }
         }
         return navigationLinks;

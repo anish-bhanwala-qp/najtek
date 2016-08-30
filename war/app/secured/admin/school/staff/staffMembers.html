@@ -14,9 +14,9 @@
             </tr>
             </thead>
             <tbody>
-            <tr ng-repeat="schoolStaffMember in staffMembersCtrl.staffMembers">
+            <tr ng-repeat="staffMember in staffMembersCtrl.school.staffMembers">
                 <td ng-bind="$index + 1"></td>
-                <td ng-bind="schoolStaffMember.fullName">
+                <td ng-bind="staffMember.fullName">
                     <!--<a ui-sref="organizations.schools({organizationId: organization.id})"
                        ng-bind="schoolStaffMember.name"></a>-->
                 </td>

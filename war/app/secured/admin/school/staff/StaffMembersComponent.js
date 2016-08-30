@@ -22,7 +22,7 @@ function StaffMembersController(StaffMember, School, $stateParams, $uibModal) {
         });
 
         modalInstance.result.then(function (member) {
-            self.school.StaffMembers.push(member);
+            self.school.staffMembers.push(member);
         });
     };
 }

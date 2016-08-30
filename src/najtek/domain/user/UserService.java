@@ -54,6 +54,10 @@ public class UserService implements HttpSessionListener {
         return userRoleList;
     }
 
+    public List<User> findUsersWithUsernameLike(String username) {
+        return userDao.findUsersWithUsernameLike(username);
+    }
+
     public List<NavigationLink> getNavigationLinkList() {
         List<NavigationLink> navigationLinkList = new ArrayList<>();
         for (UserRole userRole: getUserRoleList()) {

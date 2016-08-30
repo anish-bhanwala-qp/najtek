@@ -12,6 +12,9 @@ import org.springframework.stereotype.Repository;
 
 import najtek.database.mapper.user.UserMapper;
 import najtek.infra.user.User;
+import org.springframework.util.StringUtils;
+
+import java.util.List;
 
 @Repository
 public class UserDao {
@@ -46,6 +49,23 @@ public class UserDao {
 		};
 
 		return (User)select.fire(sqlSessionFactory);
+	}
+
+	public List<User> findUsersWithUsernameLike(String username) {
+		if (StringUtils.isEmpty(username)) {
+			return null;
+		}
+		final String usernameLike = "%" + username + "%";
+		DatabaseSelect select = new DatabaseSelect() {
+			@Override
+			public Object processSelect(SqlSession session) {
+				logger.info("************EXECUTING findUsernameLike COMMAND**************");
+				System.out.println("************EXECUTING findUsernameLike COMMAND**************");
+				return  getMapper(session).findUsersWithUsernameLike(usernameLike);
+			}
+		};
+
+		return (List<User>)select.fire(sqlSessionFactory);
 	}
 
 	public void update(User user) {
