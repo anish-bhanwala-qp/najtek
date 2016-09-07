@@ -51,7 +51,8 @@ angular.module('NAJTek')
                         },
                         {
                             title: 'Staff',
-                            url: 'organizations.schools.staffMember({organizationId: #organizationId, schoolId: #schoolId})'                        }
+                            url: 'organizations.schools.staffMember({organizationId: #organizationId, schoolId: #schoolId})'
+                        }
                     ]
                 }
             }).state('organizations.schools.staffMember', {
@@ -64,7 +65,8 @@ angular.module('NAJTek')
                     leftNavLinks: [
                         {
                             title: 'Setting',
-                            url: 'organizations.schools.schoolSetting({organizationId: #organizationId, schoolId: #schoolId})'                        },
+                            url: 'organizations.schools.schoolSetting({organizationId: #organizationId, schoolId: #schoolId})'
+                        },
                         {
                             title: 'Staff',
                             url: 'organizations.schools.staffMember({organizationId: #organizationId, schoolId: #schoolId})',
