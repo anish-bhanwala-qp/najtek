@@ -44,9 +44,15 @@ angular.module('NAJTek')
                 },
                 data: {
                     leftNavLinks: [
-                            {title: 'Setting', readOnly: true},
-                            {title: 'Staff', readOnly: true}
-                        ]
+                        {
+                            title: 'Setting',
+                            url: 'organizations.schools.schoolSetting({organizationId: #organizationId, schoolId: #schoolId})',
+                            selected: true
+                        },
+                        {
+                            title: 'Staff',
+                            url: 'organizations.schools.staffMember({organizationId: #organizationId, schoolId: #schoolId})'                        }
+                    ]
                 }
             }).state('organizations.schools.staffMember', {
                 url: '/:schoolId/staffMember',
@@ -56,8 +62,14 @@ angular.module('NAJTek')
                 },
                 data: {
                     leftNavLinks: [
-                        {title: 'Setting', readOnly: true},
-                        {title: 'Staff', readOnly: true}
+                        {
+                            title: 'Setting',
+                            url: 'organizations.schools.schoolSetting({organizationId: #organizationId, schoolId: #schoolId})'                        },
+                        {
+                            title: 'Staff',
+                            url: 'organizations.schools.staffMember({organizationId: #organizationId, schoolId: #schoolId})',
+                            selected: true
+                        }
                     ]
                 }
             });
