@@ -10,7 +10,7 @@ import java.util.List;
 public class ValidationException extends Exception {
     private FieldError fieldErrors[];
 
-    public ValidationException(FieldError... fieldError) {
+    public ValidationException(FieldError... fieldErrors) {
         this.fieldErrors = fieldErrors;
     }
 
