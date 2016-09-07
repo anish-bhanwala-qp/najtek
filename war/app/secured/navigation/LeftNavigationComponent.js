@@ -5,14 +5,6 @@ function LeftNavigationController(LeftNavigationService) {
 
     var selectedTab;
 
-    function setFirstTabAsActive() {
-        if (self.leftNavLinks && self.leftNavLinks.length) {
-            selectedTab = self.leftNavLinks[0].title;
-        }
-    }
-
-    setFirstTabAsActive();
-
     self.selectTab = function(navLink) {
         if (navLink.readOnly) {
             return false;
@@ -27,9 +19,26 @@ function LeftNavigationController(LeftNavigationService) {
         };
     };
 
+    function setFirstTabAsActive() {
+        if (self.leftNavLinks && self.leftNavLinks.length) {
+            self.selectTab(self.leftNavLinks[0]);
+        }
+    }
+
+    function setActiveTab() {
+        setFirstTabAsActive();
+        for (var i=0; i < self.leftNavLinks.length; i++) {
+            if (self.leftNavLinks[i].selected) {
+                self.selectTab(self.leftNavLinks[i]);
+            }
+        }
+    }
+
+    setActiveTab();
+
     LeftNavigationService.onLeftNavChange(function(leftNavLinks) {
         self.leftNavLinks = leftNavLinks;
-        setFirstTabAsActive();
+        setActiveTab();
     });
 }
 

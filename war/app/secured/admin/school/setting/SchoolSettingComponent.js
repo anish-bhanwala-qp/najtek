@@ -1,6 +1,6 @@
 function SchoolSettingController(School, $stateParams, $uibModal, LeftNavigationService) {
 	var self = this;
-    var leftNavLinks = [
+    /*var leftNavLinks = [
         {
             title: 'Setting',
             url: 'organizations.schools.schoolSetting({' +
@@ -14,7 +14,7 @@ function SchoolSettingController(School, $stateParams, $uibModal, LeftNavigation
                     'schoolId:' +  $stateParams.schoolId + '})'
         }];
 
-    LeftNavigationService.resetLeftNav(leftNavLinks);
+    LeftNavigationService.resetLeftNav(leftNavLinks);*/
 
 	self.school = School.get({id: $stateParams.schoolId, organizationId: $stateParams.organizationId});
 

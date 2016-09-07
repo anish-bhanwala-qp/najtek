@@ -4,16 +4,21 @@ import najtek.database.dao.user.UserDao;
 import najtek.database.dao.user.UserRoleDao;
 import najtek.infra.navigation.NavigationLink;
 import najtek.infra.user.User;
+import najtek.infra.validation.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.FieldError;
 
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -28,6 +33,9 @@ public class UserService implements HttpSessionListener {
 
     @Autowired
     private UserRoleDao userRoleDao;
+
+    @Autowired
+    private OrganizationService organizationService;
 
 
     private User user;
@@ -56,6 +64,37 @@ public class UserService implements HttpSessionListener {
 
     public List<User> findUsersWithUsernameLike(String username) {
         return userDao.findUsersWithUsernameLike(username);
+    }
+
+    public List<User> findUsersWithEmailAddressLike(String emailAddress) {
+        return userDao.findUsersWithEmailAddressLike(emailAddress);
+    }
+
+    public List<User> findUsersWithOrganizationId(long organizationId) {
+        return userDao.findUsersWithOrganizationId(organizationId);
+    }
+
+    public User addUser(User user) throws ValidationException {
+        validateAddUser(user);
+
+        userDao.insert(user);
+        return user;
+    }
+
+    private void validateAddUser(User user) throws ValidationException {
+        String username = user.getUsername();
+        List<User> users = findUsersWithUsernameLike(username);
+        if (!users.isEmpty()) {
+            FieldError fieldError = new FieldError("User",
+                    "username", "user.username.already.exists.error");
+            throw new ValidationException(fieldError);
+        }
+        Organization organization = organizationService.getById(user.getOrganizationId());
+        Assert.notNull(organization, "Organization should not be null");
+    }
+
+    private String getUsernameFromEmailAddress(String emailAddress) {
+        return emailAddress.split("@")[0];
     }
 
     public List<NavigationLink> getNavigationLinkList() {

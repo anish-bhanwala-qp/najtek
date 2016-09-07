@@ -1,5 +1,7 @@
-function OrganizationController(Organization, $scope, $uibModal) {
+function OrganizationController(Organization, $scope, $uibModal, LeftNavigationService) {
 	var self = this;
+	/*var leftNavLinks= [{title: 'Organizations', readOnly: true}];
+	LeftNavigationService.resetLeftNav(leftNavLinks);   */
 
     self.organizations = Organization.query();
 

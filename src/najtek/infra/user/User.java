@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.*;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import najtek.domain.common.DomainObject;
@@ -11,6 +12,7 @@ import najtek.domain.common.DomainObject;
 import najtek.domain.user.Role;
 import najtek.domain.user.UserRole;
 import najtek.infra.navigation.NavigationLink;
+import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -22,16 +24,21 @@ public class User implements UserDetails, DomainObject {
 
     private long id;
 
-    @NotNull
+    @NotNull(message = "user.username.length.error")
+    @Size(min = 3, max = 127, message = "user.username.length.error")
     private String username;
+
+    @Email
+    @Size(min = 3, max = 127, message = "user.emailaddress.length.error")
+    private String emailAddress;
     private String firstName;
     private String middleName;
     private String lastName;
     private long organizationId;
     private Timestamp creationTimestamp;
 
-    @JsonIgnore
-    @NotNull
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Size(min = 8, message = "user.password.length.error")
     private String password;
 
     public User() {}
@@ -59,6 +66,14 @@ public class User implements UserDetails, DomainObject {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 
     @Override
@@ -111,14 +126,6 @@ public class User implements UserDetails, DomainObject {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getEmailAddress() {
-        return username;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.username = emailAddress;
     }
 
     public long getOrganizationId() {

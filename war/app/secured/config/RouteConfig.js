@@ -10,7 +10,19 @@ angular.module('NAJTek')
                   label: 'Organizations'
                 },
                 data: {
-                    leftNavLinks: [{title: 'Organizations', readOnly: true}]
+                    leftNavLinks: [{title: 'Organizations', url: 'organizations'}]
+                }
+            }).state('organizations.users', {
+                url: '/:organizationId/users',
+                template:  '<nt-users-component></nt-users-component>',
+                ncyBreadcrumb: {
+                  label: 'Users'
+                },
+                data: {
+                    leftNavLinks: [
+                        {title: 'Schools', url: 'organizations.schools({organizationId: #organizationId})'},
+                        {title: 'Users', url: 'organizations.users({organizationId: #organizationId})', selected: true}
+                    ]
                 }
             }).state('organizations.schools', {
                 url: '/:organizationId/schools',
@@ -19,7 +31,10 @@ angular.module('NAJTek')
                     label: 'Schools'
                 },
                 data: {
-                    leftNavLinks: [{title: 'Schools', readOnly: true}]
+                    leftNavLinks: [
+                        {title: 'Schools', url: 'organizations.schools({organizationId: #organizationId})', selected: true},
+                        {title: 'Users', url: 'organizations.users({organizationId: #organizationId})'}
+                    ]
                 }
             }).state('organizations.schools.schoolSetting', {
                 url: '/:schoolId',
@@ -29,7 +44,7 @@ angular.module('NAJTek')
                 },
                 data: {
                     leftNavLinks: [
-                            {title: 'Staff', readOnly: true},
+                            {title: 'Setting', readOnly: true},
                             {title: 'Staff', readOnly: true}
                         ]
                 }
@@ -41,7 +56,7 @@ angular.module('NAJTek')
                 },
                 data: {
                     leftNavLinks: [
-                        {title: 'Staff', url: true},
+                        {title: 'Setting', readOnly: true},
                         {title: 'Staff', readOnly: true}
                     ]
                 }

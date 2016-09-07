@@ -1,0 +1,68 @@
+<div class="modal-header">
+    <h3 class="modal-title">Add User</h3>
+</div>
+<form ng-submit="addUserCtrl.submit(addUserForm)" name="addUserForm" class="form-horizontal" novalidate>
+    <div class="modal-body" id="modal-body">
+        <nt-field-label label-for="username" field="addUserForm.username" label="Username">
+            <input type="text"
+                   name="username"
+                   ng-model="addUserCtrl.user.username"
+                   id="username"
+                   class="form-control input-sm"
+                   uib-typeahead="user.username for user in addUserCtrl.searchUsers($viewValue)"
+                   typeahead-min-length="3"
+                   typeahead-wait-ms="200"
+                   required/>
+        </nt-field-label>
+
+        <nt-field-label label-for="password" field="addUserForm.password" label="Password">
+            <input type="text"
+                   name="password"
+                   ng-model="addUserCtrl.user.password"
+                   id="password"
+                   class="form-control input-sm"
+                   required/>
+        </nt-field-label>
+
+        <nt-field-label label-for="emailAddress" field="addUserForm.emailAddress" label="Email Address">
+            <input type="text"
+                   name="emailAddress"
+                   ng-model="addUserCtrl.user.emailAddress"
+                   id="emailAddress"
+                   class="form-control input-sm"
+                   required/>
+        </nt-field-label>
+
+        <nt-field-label label-for="firstName" field="addUserForm.firstName" label="First Name">
+            <input type="text"
+                   name="firstName"
+                   ng-model="addUserCtrl.user.firstName"
+                   id="firstName"
+                   class="form-control input-sm"
+                   required/>
+        </nt-field-label>
+
+        <nt-field-label label-for="middleName" field="addUserForm.middleName" label="Middle Name">
+            <input type="text"
+                   name="middleName"
+                   ng-model="addUserCtrl.user.middleName"
+                   id="middleName"
+                   class="form-control input-sm"
+                   required/>
+        </nt-field-label>
+
+        <nt-field-label label-for="lastName" field="addUserForm.lastName" label="Last Name">
+            <input type="text"
+                   name="lastName"
+                   ng-model="addUserCtrl.user.lastName"
+                   id="lastName"
+                   class="form-control input-sm"
+                   required/>
+        </nt-field-label>
+    </div>
+
+    <div class="modal-footer">
+        <input type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid" value="Add">
+        <button class="btn btn-default" type="button" ng-click="addUserCtrl.cancel()">Cancel</button>
+    </div>
+</form>

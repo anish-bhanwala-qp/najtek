@@ -43,7 +43,6 @@ public class UserDao {
 			@Override
 			public Object processSelect(SqlSession session) {
 				logger.info("************EXECUTING selectByUsername COMMAND**************");
-				System.out.println("************EXECUTING selectByUsername COMMAND**************");
 				return  getMapper(session).selectByUsername(username);
 			}
 		};
@@ -60,13 +59,40 @@ public class UserDao {
 			@Override
 			public Object processSelect(SqlSession session) {
 				logger.info("************EXECUTING findUsernameLike COMMAND**************");
-				System.out.println("************EXECUTING findUsernameLike COMMAND**************");
 				return  getMapper(session).findUsersWithUsernameLike(usernameLike);
 			}
 		};
 
 		return (List<User>)select.fire(sqlSessionFactory);
 	}
+
+	public List<User> findUsersWithEmailAddressLike(String emailAddress) {
+		if (StringUtils.isEmpty(emailAddress)) {
+			return null;
+		}
+		final String emailAddressLike = "%" + emailAddress + "%";
+		DatabaseSelect select = new DatabaseSelect() {
+			@Override
+			public Object processSelect(SqlSession session) {
+				logger.info("************EXECUTING findUsersWithEmailAddressLike COMMAND**************");
+				return  getMapper(session).findUsersWithEmailAddressLike(emailAddressLike);
+			}
+		};
+
+		return (List<User>)select.fire(sqlSessionFactory);
+	}
+
+    public List<User> findUsersWithOrganizationId(long organizationId) {
+        DatabaseSelect select = new DatabaseSelect() {
+            @Override
+            public Object processSelect(SqlSession session) {
+                logger.info("************EXECUTING findUsersWithOrganizationId COMMAND**************");
+                return  getMapper(session).findUsersWithOrganizationId(organizationId);
+            }
+        };
+
+        return (List<User>)select.fire(sqlSessionFactory);
+    }
 
 	public void update(User user) {
 		DatabaseUpdate update = new DatabaseUpdate() {

@@ -3,7 +3,8 @@ CREATE DATABASE maindb DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_unicode_c
 
 CREATE TABLE user (
 	id int(11)  NOT NULL AUTO_INCREMENT PRIMARY KEY,
-	email_address varchar(128) NOT NULL,
+	username varchar(128) NOT NULL,
+	email_address varchar(128),
 	password varchar(128) NOT NULL,
 	first_name varchar(64),
 	middle_name varchar(64),
@@ -11,8 +12,10 @@ CREATE TABLE user (
 	creation_timestamp timestamp default CURRENT_TIMESTAMP,
 	organization_id INT(11) NOT NULL,
 	
-	CONSTRAINT email_address_uc UNIQUE(email_address),  
-	FULLTEXT INDEX (email_address)
+	CONSTRAINT email_address_uc UNIQUE(email_address),
+	CONSTRAINT username_uc UNIQUE(username),
+	FULLTEXT INDEX (email_address),
+	FULLTEXT INDEX (username)
 ) CHARACTER SET=utf8;
 
 CREATE TABLE user_role (

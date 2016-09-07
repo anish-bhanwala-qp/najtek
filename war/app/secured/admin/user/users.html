@@ -1,0 +1,30 @@
+<div ui-view>
+    <div align="right">
+        <button type="button" class="btn btn-primary" ng-click="usersCtrl.showAdd()">
+            Add User
+        </button>
+    </div>
+
+    <h2>Users <small ng-bind="usersCtrl.organization.name"></small></h2>
+
+    <nt-panel header="Users" content-table="true">
+        <table class="table">
+            <thead>
+            <tr>
+                <th width="5%">#</th>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="user in usersCtrl.organization.users">
+                <td ng-bind="$index + 1"></td>
+                <td>
+                    <span ng-bind="user.firstName"></span>
+                    <span ng-bind="user.middleName"></span>
+                    <span ng-bind="user.lastName"></span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </nt-panel>
+</div>
