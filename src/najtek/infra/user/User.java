@@ -38,7 +38,6 @@ public class User implements UserDetails, DomainObject {
     private Timestamp creationTimestamp;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @NotNull(message = "user.password.length.error")
     @Size(min = 8, message = "user.password.length.error")
     private String password;
 

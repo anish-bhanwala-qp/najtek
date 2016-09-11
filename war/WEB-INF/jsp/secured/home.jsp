@@ -92,7 +92,7 @@
 <script src="/n/app/secured/admin/user/UserSearchResource.js"></script>
 <script src="/n/app/secured/admin/user/UsersComponent.js"></script>
 <script src="/n/app/secured/admin/user/UserResource.js"></script>
-<script src="/n/app/secured/admin/user/AddUserComponent.js"></script>
+<script src="/n/app/secured/admin/user/AddEditUserComponent.js"></script>
 
 <script src="/n/app/secured/navigation/NavBarComponent.js"></script>
 <script src="/n/app/secured/navigation/LeftNavigationService.js"></script>

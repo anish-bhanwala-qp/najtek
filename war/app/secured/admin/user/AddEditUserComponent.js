@@ -1,7 +1,10 @@
-function AddUserController($scope, User, UserSearch, ShowValidationErrorService) {
+function AddEditUserController($scope, User, UserSearch, ShowValidationErrorService) {
 	var self = this;
 
 	self.user = new User();
+	if (self.resolve.user) {
+	    angular.extend(self.user, self.resolve.user);
+	}
 	self.user.organizationId = self.resolve.organization.id;
 
 	self.submit = function(addUserForm) {
@@ -13,10 +16,23 @@ function AddUserController($scope, User, UserSearch, ShowValidationErrorService)
         });
 	};
 
-	self.reset = function() {
-		self.user = new User();
-		$scope.myForm.$setPristine();
-	};
+	function isEditingUser() {
+	    return (self.user.id > 0);
+	}
+
+	self.headerText = function() {
+	    if (isEditingUser()) {
+	        return 'Edit User';
+	    }
+	    return 'Add User';
+	}
+
+	self.submitButtonText = function() {
+        if (isEditingUser()) {
+            return 'Edit';
+        }
+        return 'Add';
+    }
 
     self.cancel = function () {
         self.modalInstance.dismiss('cancel');
@@ -31,12 +47,12 @@ function AddUserController($scope, User, UserSearch, ShowValidationErrorService)
 }
 
 angular.module('NAJTek')
-    .component('ntAddUserComponent', {
+    .component('ntAddEditUserComponent', {
         templateUrl : function(AppConstant) {
             return AppConstant.HTML_PATH_SECURED_PREFIX
-                    + 'admin/user/addUser.html'
+                    + 'admin/user/addEditUser.html'
         },
-        controller : AddUserController,
+        controller : AddEditUserController,
         controllerAs : 'addUserCtrl',
         bindings: {
             modalInstance: '<',

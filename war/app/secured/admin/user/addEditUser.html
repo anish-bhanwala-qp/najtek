@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="modal-title">Add User</h3>
+    <h3 class="modal-title" ng-bind="addUserCtrl.headerText()"></h3>
 </div>
 <form ng-submit="addUserCtrl.submit(addUserForm)" name="addUserForm" class="form-horizontal" novalidate>
     <div class="modal-body" id="modal-body">
@@ -62,7 +62,7 @@
     </div>
 
     <div class="modal-footer">
-        <input type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid" value="Add">
+        <input type="submit" class="btn btn-primary" ng-disabled="myForm.$invalid" ng-value="addUserCtrl.submitButtonText()">
         <button class="btn btn-default" type="button" ng-click="addUserCtrl.cancel()">Cancel</button>
     </div>
 </form>

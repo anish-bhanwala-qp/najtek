@@ -12,17 +12,23 @@
             <thead>
             <tr>
                 <th width="5%">#</th>
+                <th>Username</th>
                 <th>Name</th>
+                <th>Email Address</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="user in usersCtrl.organization.users">
                 <td ng-bind="$index + 1"></td>
                 <td>
+                    <a ng-click="usersCtrl.showEdit(user)" ng-bind="user.username"></a>
+                </td>
+                <td>
                     <span ng-bind="user.firstName"></span>
                     <span ng-bind="user.middleName"></span>
                     <span ng-bind="user.lastName"></span>
                 </td>
+                <td ng-bind="user.emailAddress"></td>
             </tr>
             </tbody>
         </table>

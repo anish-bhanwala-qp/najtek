@@ -39,10 +39,12 @@ public interface UserMapper {
     List<User> findUsersWithOrganizationId(long organizationId);
 
 	@Update("update user set username = #{username}, " +
-            "password = #{password}," +
-            "email_address = #{emailAddress}," +
-            "first_name = #{firstName}, middle_name = #{middleName}," +
-            "last_name = #{lastName}, organization_id = #{organization_id}" +
+            "password = #{password}, " +
+            "email_address = #{emailAddress}, " +
+            "first_name = #{firstName}, " +
+            "middle_name = #{middleName}, " +
+            "last_name = #{lastName}, " +
+            "organization_id = #{organizationId} " +
             "where id = #{id}")
 	void update(User user);
 

@@ -48,12 +48,33 @@ public class AdminUserController extends APISecuredController {
         }
 
         try {
-            userService.addUser(user);
+            user = userService.addUser(user);
         } catch (ValidationException ex) {
             return restResponse.getValidationErrorResponse("generic.validation.errors",
                     ex.getFieldErrors());
         }
 
         return restResponse.getSuccessResponse(user, "user.add.success");
+    }
+
+    @RequestMapping(value = "/organization/{organizationId}/user/{id}", method = RequestMethod.POST)
+    public ResponseEntity updateUser(@Valid @RequestBody User user,
+                                     @PathVariable("id") long id,
+                                     BindingResult bindingResult) {
+        logger.info("Update user " + user.getUsername());
+
+        if (bindingResult.hasErrors()) {
+            return restResponse.getValidationErrorResponse(bindingResult,
+                    "generic.validation.errors");
+        }
+
+        try {
+            user = userService.updateUser(user);
+        } catch (ValidationException ex) {
+            return restResponse.getValidationErrorResponse("generic.validation.errors",
+                    ex.getFieldErrors());
+        }
+
+        return restResponse.getSuccessResponse(user, "user.edit.success");
     }
 }

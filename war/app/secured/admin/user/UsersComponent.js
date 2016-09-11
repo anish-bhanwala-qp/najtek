@@ -10,7 +10,7 @@ function UsersController(User, Organization, $stateParams, $uibModal) {
     self.showAdd = function() {
         var modalInstance = $uibModal.open({
             animation: true,
-            component: 'ntAddUserComponent',
+            component: 'ntAddEditUserComponent',
             resolve: {
                 organization: function () {
                   return self.organization;
@@ -20,6 +20,25 @@ function UsersController(User, Organization, $stateParams, $uibModal) {
 
         modalInstance.result.then(function (user) {
             self.organization.users.push(user);
+        });
+    };
+
+    self.showEdit = function(selectedUser) {
+        var modalInstance = $uibModal.open({
+            animation: true,
+            component: 'ntAddEditUserComponent',
+            resolve: {
+                organization: function () {
+                    return self.organization;
+                },
+                user: function() {
+                    return selectedUser;
+                }
+            }
+        });
+
+        modalInstance.result.then(function (user) {
+            angular.extend(selectedUser, user);
         });
     };
 }
