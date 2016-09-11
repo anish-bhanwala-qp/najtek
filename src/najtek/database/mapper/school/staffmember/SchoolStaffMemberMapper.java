@@ -20,6 +20,7 @@ public interface SchoolStaffMemberMapper {
             SchoolStaffMemberMapper.TABLE_NAME + ".id as id, " +
             SchoolStaffMemberMapper.TABLE_NAME + ".user_id as userId, " +
             SchoolStaffMemberMapper.TABLE_NAME + ".school_id as schoolId, " +
+            UserMapper.TABLE_NAME + ".username as username, " +
             UserMapper.TABLE_NAME + ".email_address as emailAddress, " +
             UserMapper.TABLE_NAME + ".first_name as firstName, " +
             UserMapper.TABLE_NAME + ".middle_name as middle_Name, " +

@@ -5,21 +5,23 @@
         </button>
     </div>
 
+    <h2>Staff Members <small ng-bind="staffMembersCtrl.school.name"></small></h2>
     <nt-panel header="Staff Members" content-table="true">
         <table class="table">
             <thead>
             <tr>
                 <th width="5%">#</th>
+                <th>Username</th>
                 <th>Name</th>
+                <th>Email Address</th>
             </tr>
             </thead>
             <tbody>
             <tr ng-repeat="staffMember in staffMembersCtrl.school.staffMembers">
                 <td ng-bind="$index + 1"></td>
-                <td ng-bind="staffMember.fullName">
-                    <!--<a ui-sref="organizations.schools({organizationId: organization.id})"
-                       ng-bind="schoolStaffMember.name"></a>-->
-                </td>
+                <td ng-bind="staffMember.username"></td>
+                <td ng-bind="staffMember.fullName"></td>
+                <td ng-bind="staffMember.emailAddress"></td>
             </tr>
             </tbody>
         </table>
