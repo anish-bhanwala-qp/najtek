@@ -59,6 +59,19 @@
                    class="form-control input-sm"
                    required/>
         </nt-field-label>
+
+        <nt-field-label label="Roles" field-type="static">
+            <div ng-repeat="userRole in addUserCtrl.userRoles">
+                <label for="{{userRole.role}}">
+                    <input type="checkbox"
+                           ng-model="addUserCtrl.userRole(userRole)"
+                           name="userRole"
+                           id="{{userRole.role}}"
+                           ng-model-options="{ getterSetter: true }"/>
+                    <span ng-bind="userRole.role"></span>
+                </label>
+            </div>
+        </nt-field-label>
     </div>
 
     <div class="modal-footer">

@@ -1,5 +1,6 @@
 package najtek.database.mapper.user;
 
+import najtek.domain.user.UserRole;
 import org.apache.ibatis.annotations.*;
 
 import najtek.infra.user.User;
@@ -20,10 +21,37 @@ public interface UserMapper {
             "creation_timestamp as creationTimestamp, " +
             "organization_id as organizationId ";
 
+    @Select("select * from user_role where user_id = #{userId}")
+    List<UserRole> selectUserRoles(long userId);
+
 	@Select("select " + SELECT_COLUMNS + " from user where id = #{id}")
-	User selectById(long id);
+    @Results(value = {
+            @Result(property="id", column = "id"),
+            @Result(property="username", column = "username"),
+            @Result(property="password", column = "password"),
+            @Result(property="emailAddress", column = "email_address"),
+            @Result(property="firstName", column = "first_name"),
+            @Result(property="middleName", column = "middle_name"),
+            @Result(property="lastName", column = "last_name"),
+            @Result(property="creationTimestamp", column = "creation_timestmap"),
+            @Result(property="organizationId", column = "organization_id"),
+            @Result(property="userRoles", column="id", javaType= List.class, many=@Many(select="selectUserRoles"))
+    })
+    User selectById(long id);
 
 	@Select("select " + SELECT_COLUMNS + " from user where username = #{username}")
+    @Results(value = {
+            @Result(property="id", column = "id"),
+            @Result(property="username", column = "username"),
+            @Result(property="password", column = "password"),
+            @Result(property="emailAddress", column = "email_address"),
+            @Result(property="firstName", column = "first_name"),
+            @Result(property="middleName", column = "middle_name"),
+            @Result(property="lastName", column = "last_name"),
+            @Result(property="creationTimestamp", column = "creation_timestmap"),
+            @Result(property="organizationId", column = "organization_id"),
+            @Result(property="userRoles", column="id", javaType= List.class, many=@Many(select="selectUserRoles"))
+    })
 	User selectByUsername(String username);
 
     @Select("select " + SELECT_COLUMNS + " from user where username like #{username}")
@@ -33,9 +61,33 @@ public interface UserMapper {
     List<User> findUsersWithEmailAddressLike(String emailAddress);
 
 	@Select("select " + SELECT_COLUMNS + " from user where username like #{username}")
+    @Results(value = {
+            @Result(property="id", column = "id"),
+            @Result(property="username", column = "username"),
+            @Result(property="password", column = "password"),
+            @Result(property="emailAddress", column = "email_address"),
+            @Result(property="firstName", column = "first_name"),
+            @Result(property="middleName", column = "middle_name"),
+            @Result(property="lastName", column = "last_name"),
+            @Result(property="creationTimestamp", column = "creation_timestmap"),
+            @Result(property="organizationId", column = "organization_id"),
+            @Result(property="userRoles", column="id", javaType= List.class, many=@Many(select="selectUserRoles"))
+    })
 	User findUserWithUsername(String username);
 
     @Select("select " + SELECT_COLUMNS + " from user where organization_id like #{organizationId}")
+    @Results(value = {
+            @Result(property="id", column = "id"),
+            @Result(property="username", column = "username"),
+            @Result(property="password", column = "password"),
+            @Result(property="emailAddress", column = "email_address"),
+            @Result(property="firstName", column = "first_name"),
+            @Result(property="middleName", column = "middle_name"),
+            @Result(property="lastName", column = "last_name"),
+            @Result(property="creationTimestamp", column = "creation_timestmap"),
+            @Result(property="organizationId", column = "organization_id"),
+            @Result(property="userRoles", column="id", javaType= List.class, many=@Many(select="selectUserRoles"))
+    })
     List<User> findUsersWithOrganizationId(long organizationId);
 
 	@Update("update user set username = #{username}, " +

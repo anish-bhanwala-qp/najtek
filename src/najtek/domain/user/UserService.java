@@ -45,11 +45,9 @@ public class UserService implements HttpSessionListener {
 
 
     private User user;
-    private List<UserRole> userRoleList;
 
     public void addToCache(User user) {
         this.user = user;
-        this.user.setUserRoleList(getUserRoleList());
     }
 
     public User getUser() {
@@ -60,13 +58,13 @@ public class UserService implements HttpSessionListener {
         return user;
     }
 
-    public List<UserRole> getUserRoleList() {
+   /* public List<UserRole> getUserRoleList() {
         if (userRoleList == null) {
             logger.info("Fetching UserRoleList from database");
             userRoleList = userRoleDao.selectByUserId(user.getId());
         }
         return userRoleList;
-    }
+    }*/
 
     public List<User> findUsersWithUsernameLike(String username) {
         return userDao.findUsersWithUsernameLike(username);
@@ -161,7 +159,7 @@ public class UserService implements HttpSessionListener {
         return emailAddress.split("@")[0];
     }
 
-    public List<NavigationLink> getNavigationLinkList() {
+   /* public List<NavigationLink> getNavigationLinkList() {
         List<NavigationLink> navigationLinkList = new ArrayList<>();
         for (UserRole userRole: getUserRoleList()) {
             if (userRole.getRole() == Role.ADMIN) {
@@ -169,7 +167,7 @@ public class UserService implements HttpSessionListener {
             }
         }
         return navigationLinkList;
-    }
+    }*/
 
     @Override
     public void sessionCreated(HttpSessionEvent se) {

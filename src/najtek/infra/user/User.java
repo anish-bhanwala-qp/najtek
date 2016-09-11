@@ -43,7 +43,7 @@ public class User implements UserDetails, DomainObject {
 
     public User() {}
 
-    private transient List<UserRole> userRoleList;
+    private transient List<UserRole> userRoles;
 
     @Override
     public Collection<GrantedAuthority> getAuthorities() {
@@ -144,12 +144,12 @@ public class User implements UserDetails, DomainObject {
         this.creationTimestamp = creationTimestamp;
     }
 
-    public void setUserRoleList(List<UserRole> userRoleList) {
-        this.userRoleList = userRoleList;
+    public void setUserRoles(List<UserRole> userRoles) {
+        this.userRoles = userRoles;
     }
 
     public List<UserRole> getUserRoles() {
-        return userRoleList;
+        return userRoles;
     }
 
     @JsonProperty("navLinks")

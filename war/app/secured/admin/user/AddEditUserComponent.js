@@ -1,4 +1,4 @@
-function AddEditUserController($scope, User, UserSearch, ShowValidationErrorService) {
+function AddEditUserController($scope, User, UserSearch, ShowValidationErrorService, $log, UserRoleService) {
 	var self = this;
 
 	self.user = new User();
@@ -6,6 +6,7 @@ function AddEditUserController($scope, User, UserSearch, ShowValidationErrorServ
 	    angular.extend(self.user, self.resolve.user);
 	}
 	self.user.organizationId = self.resolve.organization.id;
+	self.userRoles = UserRoleService.getUserRoles();
 
 	self.submit = function(addUserForm) {
 		self.user.$save(function(result) {
@@ -43,6 +44,16 @@ function AddEditUserController($scope, User, UserSearch, ShowValidationErrorServ
                 .$promise.then(function(response) {
                     return response;
                 });
+    };
+
+    self.userRole = function(userRole) {
+        return function(value) {
+            if (arguments.length > 0) {
+                userRole.selected = angular.isDefined(value) ? value : false;
+            } else {
+                return userRole.selected;
+            }
+        }
     };
 }
 
