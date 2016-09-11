@@ -2,6 +2,9 @@ package najtek.domain.school.staffmember;
 
 import najtek.database.dao.school.staffmember.SchoolStaffMemberDao;
 import najtek.domain.school.SchoolService;
+import najtek.domain.user.UserService;
+import najtek.infra.user.User;
+import najtek.infra.validation.ValidationException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.validation.FieldError;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +31,16 @@ public class SchoolStaffMemberService {
     @Autowired
     private SchoolService schoolService;
 
+    @Autowired
+    private UserService userService;
+
     private Map<Long, List<SchoolStaffMember>> schoolStaffMemberMap;
+
+    public void clearCache(long schoolId) {
+        if (isStaffMemberListInCache(schoolId)) {
+            populateStaffMemberListFromDatabaseToCache(schoolId);
+        }
+    }
 
     public List<SchoolStaffMember> getStaffMemberListBySchoolId(long schoolId,
                                                                 long organizationId) {
@@ -52,11 +65,68 @@ public class SchoolStaffMemberService {
         return null;
     }
 
-    public void addStaffMemberToSchool(SchoolStaffMember schoolStaffMember, long organizationId) {
+    public SchoolStaffMember getStaffMemberByUserId(long userId,
+                                                    long organizationId,
+                                                    long schoolId) {
+        for (SchoolStaffMember schoolStaffMember : getStaffMemberListBySchoolId(schoolId, organizationId)) {
+            if (schoolStaffMember.getUserId() == userId) {
+                return schoolStaffMember;
+            }
+        }
+        return null;
+    }
+
+    public SchoolStaffMember addStaffMemberToSchool(SchoolStaffMember schoolStaffMember,
+                                                    long organizationId) throws ValidationException  {
         assertSchoolNotNull(organizationId, schoolStaffMember.getSchoolId());
+
+        User user = validateAndGetUser(schoolStaffMember, organizationId);
+        schoolStaffMember.setUserId(user.getId());
+
         schoolStaffMemberDao.insert(schoolStaffMember);
 
-        addStaffMemberToCache(schoolStaffMember);
+        clearCache(schoolStaffMember.getSchoolId());
+
+        return getStaffMemberById(schoolStaffMember.getId(),
+                organizationId, schoolStaffMember.getSchoolId());
+    }
+
+    private User validateAndGetUser(SchoolStaffMember schoolStaffMember,
+                                    long organizationId) throws ValidationException {
+        User user = userService.findUserWithUsername(schoolStaffMember.getUsername());
+        if (user == null) {
+            user = populateUser(new User(), schoolStaffMember);
+            user.setOrganizationId(organizationId);
+
+            userService.addUser(user);
+        } else {
+            if (user.getOrganizationId() != organizationId) {
+                FieldError fieldError = new FieldError("StaffMember",
+                        "username", "user.username.in.different.organization.error");
+                throw new ValidationException(fieldError);
+            }
+
+            SchoolStaffMember existingStaffMember = getStaffMemberByUserId(user.getId(),
+                    user.getOrganizationId(), schoolStaffMember.getSchoolId());
+            if (existingStaffMember != null) {
+                FieldError fieldError = new FieldError("StaffMember",
+                        "username", "school.staffmember.already.exists.error");
+                throw new ValidationException(fieldError);
+            }
+        }
+
+        return user;
+    }
+
+    private User populateUser(User user, SchoolStaffMember schoolStaffMember) {
+        user.setUsername(schoolStaffMember.getUsername());
+        user.setPassword(schoolStaffMember.getPassword());
+        user.setFirstName(schoolStaffMember.getFirstName());
+        user.setMiddleName(schoolStaffMember.getMiddleName());
+        user.setLastName(schoolStaffMember.getLastName());
+        user.setEmailAddress(schoolStaffMember.getEmailAddress());
+
+        return user;
     }
 
     private void addStaffMemberToCache(SchoolStaffMember schoolStaffMember) {

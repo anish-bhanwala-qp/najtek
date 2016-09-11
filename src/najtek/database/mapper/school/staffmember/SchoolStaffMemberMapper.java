@@ -18,12 +18,12 @@ public interface SchoolStaffMemberMapper {
     String TABLE_NAME = "school_staff_member";
     String SELECT_COLUMNS = "select " +
             SchoolStaffMemberMapper.TABLE_NAME + ".id as id, " +
-            SchoolStaffMemberMapper.TABLE_NAME + ".user_id as user_id, " +
-            SchoolStaffMemberMapper.TABLE_NAME + ".school_id as school_id, " +
-            UserMapper.TABLE_NAME + ".email_address as email_address, " +
-            UserMapper.TABLE_NAME + ".first_name as first_name, " +
-            UserMapper.TABLE_NAME + ".middle_name as middle_name, " +
-            UserMapper.TABLE_NAME + ".last_name as last_name ";
+            SchoolStaffMemberMapper.TABLE_NAME + ".user_id as userId, " +
+            SchoolStaffMemberMapper.TABLE_NAME + ".school_id as schoolId, " +
+            UserMapper.TABLE_NAME + ".email_address as emailAddress, " +
+            UserMapper.TABLE_NAME + ".first_name as firstName, " +
+            UserMapper.TABLE_NAME + ".middle_name as middle_Name, " +
+            UserMapper.TABLE_NAME + ".last_name as lastName ";
     String SELECT_FROM = " from " + SchoolStaffMemberMapper.TABLE_NAME + ", " +
             UserMapper.TABLE_NAME + " ";
     String SELECT_WHERE = " where " +

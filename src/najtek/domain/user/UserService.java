@@ -66,6 +66,10 @@ public class UserService implements HttpSessionListener {
         return userDao.findUsersWithUsernameLike(username);
     }
 
+    public User findUserWithUsername(String username) {
+        return userDao.findUserWithUsername(username);
+    }
+
     public List<User> findUsersWithEmailAddressLike(String emailAddress) {
         return userDao.findUsersWithEmailAddressLike(emailAddress);
     }

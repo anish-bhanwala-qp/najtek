@@ -66,6 +66,21 @@ public class UserDao {
 		return (List<User>)select.fire(sqlSessionFactory);
 	}
 
+	public User findUserWithUsername(String username) {
+		if (StringUtils.isEmpty(username)) {
+			return null;
+		}
+		DatabaseSelect select = new DatabaseSelect() {
+			@Override
+			public Object processSelect(SqlSession session) {
+				logger.info("************EXECUTING findUsernameLike COMMAND**************");
+				return  getMapper(session).findUserWithUsername(username);
+			}
+		};
+
+		return (User)select.fire(sqlSessionFactory);
+	}
+
 	public List<User> findUsersWithEmailAddressLike(String emailAddress) {
 		if (StringUtils.isEmpty(emailAddress)) {
 			return null;

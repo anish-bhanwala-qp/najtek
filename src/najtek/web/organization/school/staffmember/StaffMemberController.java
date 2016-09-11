@@ -2,7 +2,10 @@ package najtek.web.organization.school.staffmember;
 
 import najtek.domain.school.staffmember.SchoolStaffMember;
 import najtek.domain.school.staffmember.SchoolStaffMemberService;
+import najtek.domain.user.UserService;
+import najtek.infra.user.User;
 import najtek.infra.utility.RESTResponse;
+import najtek.infra.validation.ValidationException;
 import najtek.web.APISecuredController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +26,9 @@ public class StaffMemberController extends APISecuredController {
 
     @Autowired
     private SchoolStaffMemberService schoolStaffMemberService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private RESTResponse restResponse;
@@ -61,7 +67,13 @@ public class StaffMemberController extends APISecuredController {
                     "generic.validation.errors");
         }
 
-        schoolStaffMemberService.addStaffMemberToSchool(schoolStaffMember, organizationId);
+        try {
+            schoolStaffMember = schoolStaffMemberService.addStaffMemberToSchool(schoolStaffMember,
+                    organizationId);
+        } catch (ValidationException ex) {
+            return restResponse.getValidationErrorResponse("generic.validation.errors",
+                    ex.getFieldErrors());
+        }
 
         logger.info("************Staff member list cache Size: " +
                 schoolStaffMemberService.getStaffMemberListBySchoolId(schoolId, organizationId).size());

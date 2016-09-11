@@ -4,14 +4,14 @@ angular.module('NAJTek')
             $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
                 $log.info(toParams);
                 if ($state.current.data && $state.current.data.leftNavLinks) {
-                    var navLinks = $state.current.data.leftNavLinks;
+                    var navLinksCopied = angular.copy($state.current.data.leftNavLinks);
                     angular.forEach(toParams, function(value, key) {
-                      for (var i=0; i < navLinks.length; i++) {
-                        var navLink = navLinks[i];
+                      for (var i=0; i < navLinksCopied.length; i++) {
+                        var navLink = navLinksCopied[i];
                         navLink.url = navLink.url.replace('#' + key, value);
                       }
                     });
-                    LeftNavigationService.resetLeftNav(navLinks);
+                    LeftNavigationService.resetLeftNav(navLinksCopied);
                 }
             });
     }]);

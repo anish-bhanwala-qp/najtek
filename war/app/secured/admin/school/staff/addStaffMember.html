@@ -3,44 +3,67 @@
 </div>
 <form ng-submit="addStaffMemberCtrl.submit(addStaffMemberForm)" name="addStaffMemberForm" class="form-horizontal" novalidate>
     <div class="modal-body" id="modal-body">
-        <nt-field-label label-for="emailAddress" field="addStaffMemberForm.emailAddress" label="Email Address">
+        <nt-field-label label-for="username" field="addStaffMemberForm.username" label="Username">
             <input type="text"
-                   name="emailAddress"
-                   ng-model="addStaffMemberCtrl.school.emailAddress"
-                   id="emailAddress"
+                   name="username"
+                   ng-model="addStaffMemberCtrl.staffMember.username"
+                   id="username"
                    class="form-control input-sm"
+                   ng-change="addStaffMemberCtrl.usernameChanged()"
                    uib-typeahead="user.username for user in addStaffMemberCtrl.searchUsers($viewValue)"
                    typeahead-min-length="3"
                    typeahead-wait-ms="200"
+                   typeahead-on-select="addStaffMemberCtrl.userSelected($item, $model)"
                    required/>
         </nt-field-label>
 
-        <nt-field-label label-for="firstName" field="addStaffMemberForm.firstName" label="First Name">
-            <input type="text"
-                   name="firstName"
-                   ng-model="addStaffMemberCtrl.school.firstName"
-                   id="firstName"
-                   class="form-control input-sm"
-                   required/>
-        </nt-field-label>
+        <div ng-if="addStaffMemberCtrl.showFieldsExceptUsername()">
 
-        <nt-field-label label-for="middleName" field="addStaffMemberForm.middleName" label="Middle Name">
-            <input type="text"
-                   name="middleName"
-                   ng-model="addStaffMemberCtrl.school.middleName"
-                   id="middleName"
-                   class="form-control input-sm"
-                   required/>
-        </nt-field-label>
+            <nt-field-label label-for="password" field="addStaffMemberForm.password" label="Password">
+                <input type="text"
+                       name="password"
+                       ng-model="addStaffMemberCtrl.staffMember.password"
+                       id="password"
+                       class="form-control input-sm"
+                       required/>
+            </nt-field-label>
 
-        <nt-field-label label-for="lastName" field="addStaffMemberForm.lastName" label="Last Name">
-            <input type="text"
-                   name="lastName"
-                   ng-model="addStaffMemberCtrl.school.lastName"
-                   id="lastName"
-                   class="form-control input-sm"
-                   required/>
-        </nt-field-label>
+            <nt-field-label label-for="emailAddress" field="addStaffMemberForm.emailAddress" label="Email Address">
+                <input type="text"
+                       name="emailAddress"
+                       ng-model="addStaffMemberCtrl.staffMember.emailAddress"
+                       id="emailAddress"
+                       class="form-control input-sm"
+                       required/>
+            </nt-field-label>
+
+            <nt-field-label label-for="firstName" field="addStaffMemberForm.firstName" label="First Name">
+                <input type="text"
+                       name="firstName"
+                       ng-model="addStaffMemberCtrl.staffMember.firstName"
+                       id="firstName"
+                       class="form-control input-sm"
+                       required/>
+            </nt-field-label>
+
+            <nt-field-label label-for="middleName" field="addStaffMemberForm.middleName" label="Middle Name">
+                <input type="text"
+                       name="middleName"
+                       ng-model="addStaffMemberCtrl.staffMember.middleName"
+                       id="middleName"
+                       class="form-control input-sm"
+                       required/>
+            </nt-field-label>
+
+            <nt-field-label label-for="lastName" field="addStaffMemberForm.lastName" label="Last Name">
+                <input type="text"
+                       name="lastName"
+                       ng-model="addStaffMemberCtrl.staffMember.lastName"
+                       id="lastName"
+                       class="form-control input-sm"
+                       required/>
+            </nt-field-label>
+        </div>
     </div>
 
     <div class="modal-footer">

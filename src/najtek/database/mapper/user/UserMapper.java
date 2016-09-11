@@ -32,6 +32,9 @@ public interface UserMapper {
     @Select("select " + SELECT_COLUMNS + " from user where email_address like #{emailAddress}")
     List<User> findUsersWithEmailAddressLike(String emailAddress);
 
+	@Select("select " + SELECT_COLUMNS + " from user where username like #{username}")
+	User findUserWithUsername(String username);
+
     @Select("select " + SELECT_COLUMNS + " from user where organization_id like #{organizationId}")
     List<User> findUsersWithOrganizationId(long organizationId);
 

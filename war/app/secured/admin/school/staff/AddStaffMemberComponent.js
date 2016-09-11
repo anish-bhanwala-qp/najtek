@@ -1,4 +1,4 @@
-function AddStaffMemberController($scope, StaffMember, UserSearch, ShowValidationErrorService) {
+function AddStaffMemberController($scope, StaffMember, UserSearch, ShowValidationErrorService, $log) {
 	var self = this;
 
 	self.staffMember = new StaffMember();
@@ -30,6 +30,19 @@ function AddStaffMemberController($scope, StaffMember, UserSearch, ShowValidatio
                 .$promise.then(function(response) {
                     return response;
                 });
+    };
+
+    self.userSelected = function (user) {
+        self.staffMember.username = user.username;
+        self.staffMember.userId = user.id;
+    };
+
+    self.showFieldsExceptUsername = function() {
+        return !self.staffMember.userId;
+    };
+
+    self.usernameChanged = function() {
+        self.staffMember.userId = 0;
     };
 }
 
